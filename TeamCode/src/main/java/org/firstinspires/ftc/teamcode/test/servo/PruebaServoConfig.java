@@ -18,8 +18,9 @@ public class    PruebaServoConfig {
 
     public static final double MIN_SERVO = 0;
     public static final double MID_SERVO = 0.5;
+
     public static final double MAX_SERVO = 1;
-    public static final double setGarraPosicion = 0.2;
+
 
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
@@ -33,9 +34,9 @@ public class    PruebaServoConfig {
         hwMap = ahwMap;
 
         servo = hwMap.get(Servo.class, "servo");
-        servo_2 = hwMap.get(Servo.class, "servo_2");
+        servo_2 = hwMap.get(Servo.class,  "servo_2");
         servo.setPosition(MID_SERVO);
-        servo_2.setPosition(MID_SERVO);
+        servo.setPosition(MID_SERVO);
 
         telemetry.addLine("Servos configurados...");
         telemetry.update();

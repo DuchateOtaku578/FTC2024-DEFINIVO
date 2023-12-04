@@ -21,6 +21,14 @@ public class TeleOpMaster extends LinearOpMode {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
 
+        final double dispararAvion = 0.25;
+
+        final double posicionAvionOmega = 0.6;
+
+        final double poscionAvionDelta = 0.5;
+
+        final double posicionAvionAlpha = 0.4;
+
         while (!isStopRequested()) {
             drive.setWeightedDrivePower(
                     new Pose2d(
@@ -32,26 +40,12 @@ public class TeleOpMaster extends LinearOpMode {
             //Telemetry del robot
             telemetry.addLine("------------Variables y estadisticas del robot------------");
             telemetry.addLine("------------Chasis------------");
-            telemetry.addLine("-----Motor enfrenteDer----- ");
-            telemetry.addData("Potencia: ", drive.rightFront.getPower());
-            telemetry.addData("Velocidad: ", drive.rightFront.getVelocity());
-            telemetry.addLine("-----Motor enfrenteIzq----- ");
-            telemetry.addData("Potencia: ", drive.leftFront.getPower());
-            telemetry.addData("Velocidad: ", drive.leftFront.getVelocity());
-            telemetry.addLine("-----Motor atrasDer----- ");
-            telemetry.addData("Potencia: ", drive.rightRear.getPower());
-            telemetry.addData("Velocidad: ", drive.rightRear.getVelocity());
-            telemetry.addLine("-----Motor atrasIzq-----");
-            telemetry.addData("Potencia: ", drive.leftRear.getPower());
-            telemetry.addData("Velocidad: ", drive.leftRear.getVelocity());
-            //Posicion del Chasis------------------------------------------
+
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("Posicion en X: ", poseEstimate.getX());
             telemetry.addData("Posiscion en Y: ", poseEstimate.getY());
             telemetry.addData("Angulo de orientacion: ", poseEstimate.getHeading());
-            
             telemetry.update();
-            //-------------------------------------------------------------
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
@@ -60,16 +54,10 @@ public class TeleOpMaster extends LinearOpMode {
             //control elevador
             if(gamepad1.right_bumper){
                 robot.subirElevador();
-                telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
-                telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
             } else if(gamepad1.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
                 robot.bajarElevador();
-                telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
-                telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
             }else {
                 robot.mantenerElevador();
-                telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
-                telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
             }
 
             telemetry.update();
@@ -80,9 +68,9 @@ public class TeleOpMaster extends LinearOpMode {
             }else
                 robot.cerrarGarra();
 
-            if(gamepad1.a){
+            if(gamepad1.right_bumper){
                 robot.bajarGarra();
-            }else if(gamepad1.y){
+            }else if(gamepad1.left_bumper){
                 robot.subirGarra();
             }
 
@@ -90,9 +78,22 @@ public class TeleOpMaster extends LinearOpMode {
                 robot.enrollarGancho();
             }else if(gamepad1.dpad_down) {
                 robot.desenrrollarGancho();
-            }else
+            }else {
                 robot.mantenerGancho();
+            }
 
+            if(gamepad1.a){
+                robot.anguloAvion.setPosition(posicionAvionAlpha);
+            }else if(gamepad1.b){
+                robot.anguloAvion.setPosition(poscionAvionDelta);
+            }else if(gamepad1.y){
+                robot.anguloAvion.setPosition(posicionAvionOmega);
+            }
+
+
+            if(gamepad1.x && gamepad1.left_bumper){
+                robot.ligaAvion.setPosition(dispararAvion);
+            }
 
         }
     }

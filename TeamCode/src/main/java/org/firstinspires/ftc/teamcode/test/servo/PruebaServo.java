@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="PruebaServo", group="Pushbot")
 // @Disabled
-public class PruebaServo extends LinearOpMode {
+public class
+PruebaServo extends LinearOpMode {
 
     PruebaServoConfig robot = new PruebaServoConfig();
 
@@ -17,15 +18,13 @@ public class PruebaServo extends LinearOpMode {
 
         waitForStart();
 
-        double posicion = 0;
-        double posicion_2 = 1;
-
+        double posicion = 0.5;
+        double posicion_2 = 0.5;
         while (opModeIsActive()) {
             telemetry.addLine("Cambia la posicion del servo con los bumpers");
 
             telemetry.addData("" , "");
             telemetry.addData("Posicion del servo" , posicion);
-            telemetry.addData("Posicion del servo_2", posicion_2);
 
             telemetry.addLine("Ever es gay");
             telemetry.update();
@@ -42,12 +41,10 @@ public class PruebaServo extends LinearOpMode {
                 posicion_2 += 0.1;
                 sleep(300);
             }
-
-
-
-
             robot.servo.setPosition(posicion);
-            robot.servo_2.setPosition(posicion_2);
+            robot.servo_2.setPosition(posicion_2
+            );
+
         }
     }
 }

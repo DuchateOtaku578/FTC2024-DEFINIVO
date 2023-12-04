@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.configuracion;
 
+import com.qualcomm.ftccommon.configuration.EditServoListActivity;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,10 +19,21 @@ public class RobotConfigMaster_RR {
     public Servo servoDerecha;
 
     public Servo servoIzquierda;
-
-
     public DcMotor gancho;
 
+    public Servo ligaAvion;
+    public Servo anguloAvion;
+
+
+    public static final double avionCargado = 0.55;
+
+    public static final double dispararAvion = 0.25;
+
+    public static final double posicionAvionOmega = 0.6;
+
+    public static final double poscionAvionDelta = 0.5;
+
+    public static final double posicionAvionAlpha = 0.4;
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
@@ -41,6 +53,8 @@ public class RobotConfigMaster_RR {
         servoDerecha = hwMap.get(Servo.class, "servoDer");
         servoIzquierda = hwMap.get(Servo.class, "servoIzq");
         gancho = hwMap.get(DcMotor.class, "Gancho");
+        anguloAvion = hwMap.get(Servo.class, "angulo");
+        ligaAvion = hwMap.get(Servo.class, "liga");
 
         derecho(elevador_1, gancho);
         reversa(elevador_2);
@@ -56,6 +70,8 @@ public class RobotConfigMaster_RR {
         servoGarra.setPosition(MID_POS);
         //servoDerecha.setPosition(Servo.MIN_POSITION);
         servoIzquierda.setPosition(Servo.MAX_POSITION);
+        anguloAvion.setPosition(posicionAvionOmega);
+        ligaAvion.setPosition(avionCargado);
 
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

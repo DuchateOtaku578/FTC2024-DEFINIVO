@@ -90,7 +90,6 @@ public class TeleOpMaster extends LinearOpMode {
                 robot.anguloAvion.setPosition(posicionAvionOmega);
             }
 
-
             if(gamepad1.x && gamepad1.left_bumper){
                 robot.ligaAvion.setPosition(dispararAvion);
             }

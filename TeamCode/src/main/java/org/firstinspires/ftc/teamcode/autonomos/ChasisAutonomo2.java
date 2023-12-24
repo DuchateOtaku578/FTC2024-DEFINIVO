@@ -16,14 +16,12 @@ public class ChasisAutonomo2 extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-40, -55, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
 
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                .lineToSplineHeading(new Pose2d(-35, 0, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(10,0 ,Math.toRadians(0)))
-                .splineToConstantHeading(new Vector2d(40, 40), Math.toRadians(0))
+                .lineToLinearHeading(new Pose2d(30, 0, Math.toRadians(90)))
                 .build();
 
 
@@ -32,9 +30,10 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()) {
+        if(!isStopRequested()) {
             drive.followTrajectorySequence(trajSeq);
 
         }
+
     }
 }

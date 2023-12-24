@@ -14,15 +14,17 @@ public class RobotConfigMaster_RR {
 
     public DcMotor elevador_2;
 
-    public Servo servoGarra;
-
     public Servo servoDerecha;
 
     public Servo servoIzquierda;
+
     public DcMotor gancho;
 
     public Servo ligaAvion;
-    public Servo anguloAvion;
+
+    public Servo pinzaDer;
+
+    public Servo pinzaIzq;
 
 
     public static final double avionCargado = 0.55;
@@ -46,14 +48,17 @@ public class RobotConfigMaster_RR {
     public void init(HardwareMap ahwMap, Telemetry telemetry){
 
         hwMap  = ahwMap;
-
+        //elevador
         elevador_1 = hwMap.get(DcMotor.class, "elevador_1");
         elevador_2 = hwMap.get(DcMotor.class, "elevador_2");
-        servoGarra = hwMap.get(Servo.class, "Garra");
+        //garra
+        pinzaDer = hwMap.get(Servo.class,"pinzaDer");
+        pinzaIzq = hwMap.get(Servo.class,"pinzaIzq");
         servoDerecha = hwMap.get(Servo.class, "servoDer");
         servoIzquierda = hwMap.get(Servo.class, "servoIzq");
+        //gancho
         gancho = hwMap.get(DcMotor.class, "Gancho");
-        anguloAvion = hwMap.get(Servo.class, "angulo");
+        //avion
         ligaAvion = hwMap.get(Servo.class, "liga");
 
         derecho(elevador_1, gancho);
@@ -67,10 +72,9 @@ public class RobotConfigMaster_RR {
         gancho.setPower(0);
         gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servoGarra.setPosition(MID_POS);
-        //servoDerecha.setPosition(Servo.MIN_POSITION);
+
+        servoDerecha.setPosition(Servo.MIN_POSITION);
         servoIzquierda.setPosition(Servo.MAX_POSITION);
-        anguloAvion.setPosition(posicionAvionOmega);
         ligaAvion.setPosition(avionCargado);
 
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -142,21 +146,13 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.425);
-        servoIzquierda.setPosition(0.425);
+        servoDerecha.setPosition(0.23);
+        servoIzquierda.setPosition(0.23);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(1);
-        servoIzquierda.setPosition(1);
-    }
-
-    public void abrirGarra(){
-        servoGarra.setPosition(0.3);
-    }
-
-    public void cerrarGarra(){
-        servoGarra.setPosition(0.1);
+        servoDerecha.setPosition(0.35);
+        servoIzquierda.setPosition(0.35);
     }
 
     public void enrollarGancho() {

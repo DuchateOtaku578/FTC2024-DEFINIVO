@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(name="TeleOpMaster", group="Pushbot")
 
-public class TeleOpMaster extends LinearOpMode {
+public class  TeleOpMaster extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -22,12 +22,6 @@ public class TeleOpMaster extends LinearOpMode {
         waitForStart();
 
         final double dispararAvion = 0.25;
-
-        final double posicionAvionOmega = 0.6;
-
-        final double poscionAvionDelta = 0.5;
-
-        final double posicionAvionAlpha = 0.4;
 
         while (!isStopRequested()) {
             drive.setWeightedDrivePower(
@@ -44,12 +38,11 @@ public class TeleOpMaster extends LinearOpMode {
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("Posicion en X: ", poseEstimate.getX());
             telemetry.addData("Posiscion en Y: ", poseEstimate.getY());
-            telemetry.addData("Angulo de orientacion: ", poseEstimate.getHeading());
-            telemetry.update();
+            telemetry.addData("Angulo de orientacion: ", Math.toDegrees(poseEstimate.getHeading()));
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
-
+            telemetry.update();
 
             //control elevador
             if(gamepad1.right_bumper){
@@ -60,13 +53,12 @@ public class TeleOpMaster extends LinearOpMode {
                 robot.mantenerElevador();
             }
 
-            telemetry.update();
             //controles de la garra
 
-           if(gamepad1.right_trigger > 0.1){
+         /*  if(gamepad1.right_trigger > 0.1){
                 robot.abrirGarra();
             }else
-                robot.cerrarGarra();
+                robot.cerrarGarra(); */
 
             if(gamepad1.right_bumper){
                 robot.bajarGarra();
@@ -80,14 +72,6 @@ public class TeleOpMaster extends LinearOpMode {
                 robot.desenrrollarGancho();
             }else {
                 robot.mantenerGancho();
-            }
-
-            if(gamepad1.a){
-                robot.anguloAvion.setPosition(posicionAvionAlpha);
-            }else if(gamepad1.b){
-                robot.anguloAvion.setPosition(poscionAvionDelta);
-            }else if(gamepad1.y){
-                robot.anguloAvion.setPosition(posicionAvionOmega);
             }
 
             if(gamepad1.x && gamepad1.left_bumper){

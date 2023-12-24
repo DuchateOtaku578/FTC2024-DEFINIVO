@@ -38,15 +38,15 @@ public class  TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
     public static double WHEEL_RADIUS = 1; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double PARALLEL_X =0; // X is the up and down direction
-    public static double PARALLEL_Y = 7.677165; // Y is the strafe direction
+    public static double PARALLEL_X = 0; // X is the up and down direction
+    public static double PARALLEL_Y = 7.5; // Y is the strafe direction
 
-    public static double PERPENDICULAR_X = -0.19685;
-    public static double PERPENDICULAR_Y = -5.03937;
+    public static double PERPENDICULAR_X = -4.5;
+    public static double PERPENDICULAR_Y =0;
 
-    public static double X_MULTIPLIER =0.333333; // Multiplier in the X direction
+    public static double X_MULTIPLIER =0.9963467286615742; // Multiplier in the X direction
 
-    public static double Y_MULTIPLIER =0.3333333; // Multiplier in the Y direction
+    public static double Y_MULTIPLIER =0.9807126511932004; // Multiplier in the Y direction
 
     // Parallel/Perpendicular to the forward axis
     // Parallel wheel is parallel to the forward axis
@@ -66,6 +66,8 @@ public class  TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
         parallelEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "enfrenteDer"));
         perpendicularEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "enfrenteIzq"));
 
+
+        perpendicularEncoder.setDirection(Encoder.Direction.REVERSE);
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
 
 
@@ -106,7 +108,7 @@ public class  TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
 
         return Arrays.asList(
                 encoderTicksToInches(parallelEncoder.getCorrectedVelocity()) * X_MULTIPLIER,
-                encoderTicksToInches(perpendicularEncoder.getRawVelocity()) * Y_MULTIPLIER
+                encoderTicksToInches(perpendicularEncoder.getCorrectedVelocity()) * Y_MULTIPLIER
         );
 
     }

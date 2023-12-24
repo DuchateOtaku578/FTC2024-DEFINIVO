@@ -22,6 +22,11 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(30, 0, Math.toRadians(90)))
+                .turn(Math.toRadians(90))
+                .forward(30)
+                .lineToLinearHeading(new Pose2d(-30,0,Math.toRadians(90)))
+                .turn(Math.toRadians(-90))
+                .forward(30)
                 .build();
 
 

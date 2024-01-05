@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.test.elevador;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="PreubaElevador", group="Pushbot")
-//@Disabled
+@Disabled
 public class PreubaElevador extends LinearOpMode {
     PruebaMotoresPosicionConfig_2 robot = new PruebaMotoresPosicionConfig_2();
 

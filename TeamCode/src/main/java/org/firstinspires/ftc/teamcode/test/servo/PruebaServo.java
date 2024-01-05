@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.test.servo;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="PruebaServo", group="Pushbot")
-// @Disabled
 public class
 PruebaServo extends LinearOpMode {
 
@@ -25,25 +25,22 @@ PruebaServo extends LinearOpMode {
 
             telemetry.addData("" , "");
             telemetry.addData("Posicion del servo" , posicion);
-
-            telemetry.addLine("Ever es gay");
             telemetry.update();
 
 
 
             if (gamepad1.a) {
                posicion += 0.1;
-               posicion_2 -= 0.1;
+               posicion_2 = 0.1;
                sleep(300);
             }
             else if (gamepad1.b) {
                 posicion -= 0.1;
-                posicion_2 += 0.1;
+                posicion_2 = 0.6;
                 sleep(300);
             }
             robot.servo.setPosition(posicion);
-            robot.servo_2.setPosition(posicion_2
-            );
+            robot.servo_2.setPosition(posicion);
 
         }
     }

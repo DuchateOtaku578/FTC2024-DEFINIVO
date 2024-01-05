@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.configuracion;
 
 import com.qualcomm.ftccommon.configuration.EditServoListActivity;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class RobotConfigMaster_RR {
 
@@ -27,15 +30,7 @@ public class RobotConfigMaster_RR {
     public Servo pinzaIzq;
 
 
-    public static final double avionCargado = 0.55;
-
-    public static final double dispararAvion = 0.25;
-
-    public static final double posicionAvionOmega = 0.6;
-
-    public static final double poscionAvionDelta = 0.5;
-
-    public static final double posicionAvionAlpha = 0.4;
+    public DistanceSensor distanceSensor;
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
@@ -51,35 +46,37 @@ public class RobotConfigMaster_RR {
         //elevador
         elevador_1 = hwMap.get(DcMotor.class, "elevador_1");
         elevador_2 = hwMap.get(DcMotor.class, "elevador_2");
-        //garra
+        distanceSensor = hwMap.get(DistanceSensor.class, "sensor_distancia");
+        /*garra
         pinzaDer = hwMap.get(Servo.class,"pinzaDer");
         pinzaIzq = hwMap.get(Servo.class,"pinzaIzq");
         servoDerecha = hwMap.get(Servo.class, "servoDer");
-        servoIzquierda = hwMap.get(Servo.class, "servoIzq");
+        servoIzquierda = hwMap.get(Servo.class, "servoIzq");*/
         //gancho
-        gancho = hwMap.get(DcMotor.class, "Gancho");
+        //gancho = hwMap.get(DcMotor.class, "Gancho");
         //avion
-        ligaAvion = hwMap.get(Servo.class, "liga");
+        //ligaAvion = hwMap.get(Servo.class, "liga");
 
-        derecho(elevador_1, gancho);
+        derecho(elevador_1 /*,gancho*/);
         reversa(elevador_2);
 
+        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) distanceSensor;
 
         elevador_1.setPower(0);
         elevador_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevador_2.setPower(0);
         elevador_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        gancho.setPower(0);
+        /*gancho.setPower(0);
         gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         servoDerecha.setPosition(Servo.MIN_POSITION);
         servoIzquierda.setPosition(Servo.MAX_POSITION);
         ligaAvion.setPosition(avionCargado);
-
+*/
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        gancho.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //gancho.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -172,4 +169,17 @@ public class RobotConfigMaster_RR {
         gancho.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         gancho.setPower(-1);
     }
+    public double distanciaCentimetros(){
+        double cm = distanceSensor.getDistance(DistanceUnit.CM);
+        return cm;
+    }
+    public double distanciaMetros(){
+        double m = distanceSensor.getDistance(DistanceUnit.METER);
+        return m;
+    }
+    public double distanciaMilimetros(){
+        double mm = distanceSensor.getDistance(DistanceUnit.MM);
+        return mm;
+    }
+
 }

@@ -31,6 +31,8 @@ public class  TeleOpMaster extends LinearOpMode {
                             -gamepad1.right_stick_x
                     )
             );
+
+            drive.update();
             //Telemetry del robot
             telemetry.addLine("------------Variables y estadisticas del robot------------");
             telemetry.addLine("------------Chasis------------");
@@ -59,7 +61,7 @@ public class  TeleOpMaster extends LinearOpMode {
                 robot.abrirGarra();
             }else
                 robot.cerrarGarra(); */
-
+/*
             if(gamepad1.right_bumper){
                 robot.bajarGarra();
             }else if(gamepad1.left_bumper){
@@ -76,7 +78,7 @@ public class  TeleOpMaster extends LinearOpMode {
 
             if(gamepad1.x && gamepad1.left_bumper){
                 robot.ligaAvion.setPosition(dispararAvion);
-            }
+            }*/
 
         }
     }

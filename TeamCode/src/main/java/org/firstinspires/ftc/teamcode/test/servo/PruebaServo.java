@@ -20,6 +20,7 @@ PruebaServo extends LinearOpMode {
 
         double posicion = 0.5;
         double posicion_2 = 0.5;
+
         while (opModeIsActive()) {
             telemetry.addLine("Cambia la posicion del servo con los bumpers");
 

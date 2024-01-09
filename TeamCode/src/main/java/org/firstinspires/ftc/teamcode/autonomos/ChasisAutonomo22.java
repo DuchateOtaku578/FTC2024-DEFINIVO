@@ -8,12 +8,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster_RR;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
 //@Disabled
-@Autonomous(name="ChasisAutonomo2.1", group="Pushbot")
+@Autonomous(name="ChasisAutonomo2.2", group="Pushbot")
 
-public class ChasisAutonomo21 extends LinearOpMode {
+public class ChasisAutonomo22 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -24,11 +23,10 @@ public class ChasisAutonomo21 extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Pose2d nadia = drive.getPoseEstimate();
-        Pose2d uwu = new Pose2d(nadia.getX(), nadia.getY(), nadia.getHeading());
 
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-42.5, -45))
+                .lineTo(new Vector2d(22, 42))
                 .build();
 
         TrajectorySequence trajSeq3 = drive.trajectorySequenceBuilder(trajSeq.end())
@@ -61,8 +59,7 @@ public class ChasisAutonomo21 extends LinearOpMode {
         //Derecho
         TrajectorySequence trajSeq6 = drive.trajectorySequenceBuilder(trajSeq3.end())
                 .strafeLeft(3.5)
-
-                .turn(Math.toRadians(-90))
+                        .turn(Math.toRadians(-90))
                 .strafeLeft(2)
                 .build();
 
@@ -88,8 +85,7 @@ public class ChasisAutonomo21 extends LinearOpMode {
                     drive.followTrajectorySequence(trajSeq5);
                 } else
                     drive.followTrajectorySequence(trajSeq6);
-                    drive.followTrajectorySequence(trajSeq7);
-
+                drive.followTrajectorySequence(trajSeq7);
             }
         }
 

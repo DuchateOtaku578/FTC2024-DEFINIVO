@@ -47,11 +47,11 @@ public class RobotConfigMaster_RR {
         elevador_1 = hwMap.get(DcMotor.class, "elevador_1");
         elevador_2 = hwMap.get(DcMotor.class, "elevador_2");
         distanceSensor = hwMap.get(DistanceSensor.class, "sensor_distancia");
-        /*garra
+
         pinzaDer = hwMap.get(Servo.class,"pinzaDer");
         pinzaIzq = hwMap.get(Servo.class,"pinzaIzq");
         servoDerecha = hwMap.get(Servo.class, "servoDer");
-        servoIzquierda = hwMap.get(Servo.class, "servoIzq");*/
+        servoIzquierda = hwMap.get(Servo.class, "servoIzq");
         //gancho
         //gancho = hwMap.get(DcMotor.class, "Gancho");
         //avion
@@ -62,6 +62,11 @@ public class RobotConfigMaster_RR {
 
         Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) distanceSensor;
 
+        pinzaDer.setPosition(MID_POS);
+        pinzaIzq.setPosition(MID_POS);
+        servoDerecha.setPosition(0.55);
+        servoIzquierda.setPosition(0.55);
+
         elevador_1.setPower(0);
         elevador_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevador_2.setPower(0);
@@ -69,14 +74,13 @@ public class RobotConfigMaster_RR {
         /*gancho.setPower(0);
         gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
         servoDerecha.setPosition(Servo.MIN_POSITION);
         servoIzquierda.setPosition(Servo.MAX_POSITION);
         ligaAvion.setPosition(avionCargado);
 */
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //gancho.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //gancho.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 
@@ -143,32 +147,46 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.23);
-        servoIzquierda.setPosition(0.23);
+        servoDerecha.setPosition(0.55);
+        servoIzquierda.setPosition(0.55);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.35);
-        servoIzquierda.setPosition(0.35);
+        servoDerecha.setPosition(0.7);
+        servoIzquierda.setPosition(0.7);
     }
 
     public void enrollarGancho() {
-        gancho.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         gancho.setPower(1);
     }
 
     public void mantenerGancho() {
-        gancho.setTargetPosition(gancho.getCurrentPosition());
-
-        gancho.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        gancho.setPower(1);
+        gancho.setPower(0);
+        gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void desenrrollarGancho(){
-        gancho.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         gancho.setPower(-1);
     }
+
+    public void cerrarGarraDer(){
+
+        pinzaDer.setPosition(0.72);
+    }
+
+    public void cerrarGarraIzq(){
+        pinzaIzq.setPosition(0.28);
+    }
+
+    public void abrirGarraDer(){
+        pinzaDer.setPosition(0.5);
+    }
+
+    public void abrirGarraIzq(){
+        pinzaIzq.setPosition(0.5);
+    }
+
+
     public double distanciaCentimetros(){
         double cm = distanceSensor.getDistance(DistanceUnit.CM);
         return cm;

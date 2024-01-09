@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster_RR;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 
-@TeleOp(name="TeleOpMaster", group="Pushbot")
+@TeleOp(name="TeleOpMaster_SOLO", group="Pushbot")
 
-public class  TeleOpMaster extends LinearOpMode {
+public class TeleOpMaster_2 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -47,9 +47,9 @@ public class  TeleOpMaster extends LinearOpMode {
             telemetry.update();
 
             //control elevador
-            if(gamepad2.right_bumper){
+            if(gamepad1.right_bumper){
                 robot.subirElevador();
-            } else if(gamepad2.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
+            } else if(gamepad1.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
                 robot.bajarElevador();
             }else {
                 robot.mantenerElevador();
@@ -57,19 +57,19 @@ public class  TeleOpMaster extends LinearOpMode {
 
             //controles de la garra
 
-            if(gamepad2.left_trigger >0.1){
+            if(gamepad1.left_trigger >0.1){
                 robot.abrirGarraIzq();
             }else
                 robot.cerrarGarraIzq();
 
-           if(gamepad2.right_trigger > 0.1){
+           if(gamepad1.right_trigger > 0.1){
                 robot.abrirGarraDer();
             }else
                 robot.cerrarGarraDer();
 
-            if(gamepad2.a){
+            if(gamepad1.a){
                 robot.bajarGarra();
-            }else if(gamepad2.y){
+            }else if(gamepad1.y){
                 robot.subirGarra();
             }
 

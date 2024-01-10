@@ -21,7 +21,7 @@ public class  TeleOpMaster extends LinearOpMode {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
 
-        final double dispararAvion = 0.25;
+
 
         while (!isStopRequested()) {
             drive.setWeightedDrivePower(
@@ -48,9 +48,9 @@ public class  TeleOpMaster extends LinearOpMode {
 
             //control elevador
             if(gamepad2.right_bumper){
-                robot.subirElevador();
+                robot.subirElevador(1);
             } else if(gamepad2.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
-                robot.bajarElevador();
+                robot.bajarElevador(1);
             }else {
                 robot.mantenerElevador();
             }
@@ -73,17 +73,17 @@ public class  TeleOpMaster extends LinearOpMode {
                 robot.subirGarra();
             }
 
-          /*  if(gamepad1.dpad_up){
+           /*if(gamepad1.dpad_up){
                 robot.enrollarGancho();
             }else if(gamepad1.dpad_down) {
                 robot.desenrrollarGancho();
             }else {
                 robot.mantenerGancho();
-            }
-
-            if(gamepad1.x && gamepad1.left_bumper){
-                robot.ligaAvion.setPosition(dispararAvion);
             }*/
+
+            if(gamepad2.x && gamepad2.left_bumper){
+                robot.ligaAvion.setPosition(0.4);
+            }
 
         }
     }

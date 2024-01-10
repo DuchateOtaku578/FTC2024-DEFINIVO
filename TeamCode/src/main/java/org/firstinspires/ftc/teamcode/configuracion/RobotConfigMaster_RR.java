@@ -47,7 +47,7 @@ public class RobotConfigMaster_RR {
         elevador_1 = hwMap.get(DcMotor.class, "elevador_1");
         elevador_2 = hwMap.get(DcMotor.class, "elevador_2");
         distanceSensor = hwMap.get(DistanceSensor.class, "sensor_distancia");
-
+        //garra
         pinzaDer = hwMap.get(Servo.class,"pinzaDer");
         pinzaIzq = hwMap.get(Servo.class,"pinzaIzq");
         servoDerecha = hwMap.get(Servo.class, "servoDer");
@@ -55,32 +55,28 @@ public class RobotConfigMaster_RR {
         //gancho
         //gancho = hwMap.get(DcMotor.class, "Gancho");
         //avion
-        //ligaAvion = hwMap.get(Servo.class, "liga");
+        ligaAvion = hwMap.get(Servo.class, "liga");
 
         derecho(elevador_1 /*,gancho*/);
         reversa(elevador_2);
 
         Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) distanceSensor;
 
-        pinzaDer.setPosition(MID_POS);
-        pinzaIzq.setPosition(MID_POS);
-        servoDerecha.setPosition(0.55);
-        servoIzquierda.setPosition(0.55);
+        cerrarGarraIzq();
+        cerrarGarraDer();
+
 
         elevador_1.setPower(0);
         elevador_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevador_2.setPower(0);
         elevador_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        /*gancho.setPower(0);
-        gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servoDerecha.setPosition(Servo.MIN_POSITION);
-        servoIzquierda.setPosition(Servo.MAX_POSITION);
-        ligaAvion.setPosition(avionCargado);
-*/
+        ligaAvion.setPosition(0.8);
+
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //gancho.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        usarUsingEncoder(elevador_1,elevador_2);
 
     }
 
@@ -120,16 +116,33 @@ public class RobotConfigMaster_RR {
         }
     }
 
-    public void subirElevador(){
+    public void subirElevador(double potencia){
         usarUsingEncoder(elevador_2, elevador_1);
-        elevador_1.setPower(1);
-        elevador_2.setPower(1);
+        elevador_1.setPower(potencia);
+        elevador_2.setPower(potencia);
     }
 
-    public void bajarElevador(){
+    public void subirElevador(double potencia, int pulsos){
+        elevador_1.setTargetPosition(-pulsos);
+        elevador_2.setTargetPosition(-pulsos);
+        usarRunToPosition(elevador_1,elevador_2);
+        elevador_1.setPower(1);
+        elevador_2.setPower(1);
+
+    }
+
+    public void bajarElevador(double potencia, int pulsos){
+        elevador_1.setTargetPosition(pulsos);
+        elevador_2.setTargetPosition(pulsos);
+        usarRunToPosition(elevador_1,elevador_2);
+        elevador_1.setPower(-potencia);
+        elevador_2.setPower(-potencia);
+    }
+
+    public void bajarElevador(double potencia){
         usarUsingEncoder(elevador_1,elevador_2);
-        elevador_1.setPower(-1);
-        elevador_2.setPower(-1);
+        elevador_1.setPower(-potencia);
+        elevador_2.setPower(-potencia);
     }
     public void mantenerElevador(){
         elevador_1.setTargetPosition(elevador_1.getCurrentPosition());
@@ -152,18 +165,23 @@ public class RobotConfigMaster_RR {
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.7);
-        servoIzquierda.setPosition(0.7);
+        servoDerecha.setPosition(0.72);
+        servoIzquierda.setPosition(0.72);
+    }
+
+    public void subirGarraHexagono(){
+        servoDerecha.setPosition(0.60);
+        servoIzquierda.setPosition(0.60);
     }
 
     public void enrollarGancho() {
         gancho.setPower(1);
     }
 
-    public void mantenerGancho() {
+    /*public void mantenerGancho() {
         gancho.setPower(0);
         gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
+    }*/
 
     public void desenrrollarGancho(){
         gancho.setPower(-1);
@@ -171,11 +189,11 @@ public class RobotConfigMaster_RR {
 
     public void cerrarGarraDer(){
 
-        pinzaDer.setPosition(0.72);
+        pinzaDer.setPosition(0.74);
     }
 
     public void cerrarGarraIzq(){
-        pinzaIzq.setPosition(0.28);
+        pinzaIzq.setPosition(0.3);
     }
 
     public void abrirGarraDer(){

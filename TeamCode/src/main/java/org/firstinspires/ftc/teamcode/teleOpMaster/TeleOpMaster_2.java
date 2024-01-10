@@ -44,13 +44,15 @@ public class TeleOpMaster_2 extends LinearOpMode {
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
+            telemetry.addLine("--------Sensor-----------");
+            telemetry.addData("Distancia al objeto mas cercano CM", robot.distanciaCentimetros());
             telemetry.update();
 
             //control elevador
             if(gamepad1.right_bumper){
-                robot.subirElevador();
+                robot.subirElevador(1);
             } else if(gamepad1.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
-                robot.bajarElevador();
+                robot.bajarElevador(1);
             }else {
                 robot.mantenerElevador();
             }
@@ -79,11 +81,11 @@ public class TeleOpMaster_2 extends LinearOpMode {
                 robot.desenrrollarGancho();
             }else {
                 robot.mantenerGancho();
-            }
+            }*/
 
             if(gamepad1.x && gamepad1.left_bumper){
-                robot.ligaAvion.setPosition(dispararAvion);
-            }*/
+                robot.ligaAvion.setPosition(0.4);
+            }
 
         }
     }

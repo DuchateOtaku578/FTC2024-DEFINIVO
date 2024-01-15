@@ -53,7 +53,7 @@ public class RobotConfigMaster_RR {
         servoDerecha = hwMap.get(Servo.class, "servoDer");
         servoIzquierda = hwMap.get(Servo.class, "servoIzq");
         //gancho
-        //gancho = hwMap.get(DcMotor.class, "Gancho");
+        gancho = hwMap.get(DcMotor.class, "Gancho");
         //avion
         ligaAvion = hwMap.get(Servo.class, "liga");
 
@@ -75,7 +75,7 @@ public class RobotConfigMaster_RR {
 
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //gancho.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        gancho.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         usarUsingEncoder(elevador_1,elevador_2);
 
     }
@@ -160,28 +160,23 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.55);
-        servoIzquierda.setPosition(0.55);
+        servoDerecha.setPosition(0.58);
+        servoIzquierda.setPosition(0.58);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.72);
-        servoIzquierda.setPosition(0.72);
-    }
-
-    public void subirGarraHexagono(){
-        servoDerecha.setPosition(0.60);
-        servoIzquierda.setPosition(0.60);
+        servoDerecha.setPosition(0.81);
+        servoIzquierda.setPosition(0.81);
     }
 
     public void enrollarGancho() {
         gancho.setPower(1);
     }
 
-    /*public void mantenerGancho() {
+    public void mantenerGancho() {
         gancho.setPower(0);
-        gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }*/
+        gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE );
+    }
 
     public void desenrrollarGancho(){
         gancho.setPower(-1);

@@ -73,13 +73,13 @@ public class  TeleOpMaster extends LinearOpMode {
                 robot.subirGarra();
             }
 
-           /*if(gamepad1.dpad_up){
+           if(gamepad2.dpad_down){
                 robot.enrollarGancho();
-            }else if(gamepad1.dpad_down) {
+            }else if(gamepad2.dpad_up) {
                 robot.desenrrollarGancho();
             }else {
                 robot.mantenerGancho();
-            }*/
+            }
 
             if(gamepad2.x && gamepad2.left_bumper){
                 robot.ligaAvion.setPosition(0.4);

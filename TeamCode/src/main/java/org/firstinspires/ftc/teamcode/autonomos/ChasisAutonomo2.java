@@ -89,7 +89,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
                 })
                 .strafeTo(new Vector2d(-35, 13))
                 .splineToConstantHeading(new Vector2d(30, 5), Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(49, 41), Math.toRadians(0)).addTemporalMarker(
+                .splineToConstantHeading(new Vector2d(49, 45), Math.toRadians(0)).addTemporalMarker(
                         2, () ->{
                             //robot.subirElevador(0.7);
                         }
@@ -149,7 +149,8 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajeseq15 = drive.trajectorySequenceBuilder(trajSeq9.end())
                 .back(10)
-                .strafeLeft(10)
+                .strafeLeft(18)
+                .forward(13)
                 .build();
 
 
@@ -197,10 +198,12 @@ public class ChasisAutonomo2 extends LinearOpMode {
                     robot.subirGarra();
                     drive.followTrajectorySequence(trajSeq9);
                     robot.subirElevador(0.7);
-                    sleep(800);
+                    sleep(1500);
                     robot.mantenerElevadorBrake();
                     robot.abrirGarraDer();
                     drive.followTrajectorySequence(trajeseq15);
+                    robot.bajarElevador(0.7);
+                    sleep(1000);
 
 
 

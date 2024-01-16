@@ -49,7 +49,7 @@ public class RobotConfigMaster_RR {
         elevador_1 = hwMap.get(DcMotor.class, "elevador_1");
         elevador_2 = hwMap.get(DcMotor.class, "elevador_2");
         distanceSensor = hwMap.get(DistanceSensor.class, "sensor_distancia");
-        distanceSensor = hwMap.get(DistanceSensor.class, "sensor_distancia_2");
+        distanceSensor_2 = hwMap.get(DistanceSensor.class, "sensor_distancia_2");
         //garra
         pinzaDer = hwMap.get(Servo.class,"pinzaDer");
         pinzaIzq = hwMap.get(Servo.class,"pinzaIzq");
@@ -64,7 +64,8 @@ public class RobotConfigMaster_RR {
         reversa(elevador_2);
 
         Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) distanceSensor;
-        Rev2mDistanceSensor sensorTImeOfFlight = (Rev2mDistanceSensor) distanceSensor_2;
+        Rev2mDistanceSensor sensorTImeOfFlight_2 = (Rev2mDistanceSensor) distanceSensor_2;
+
 
         cerrarGarraIzq();
         cerrarGarraDer();
@@ -164,13 +165,13 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.58);
-        servoIzquierda.setPosition(0.58);
+        servoDerecha.setPosition(0.63);
+        servoIzquierda.setPosition(0.63);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.81);
-        servoIzquierda.setPosition(0.81);
+        servoDerecha.setPosition(0.85);
+        servoIzquierda.setPosition(0.85);
     }
 
     public void enrollarGancho() {
@@ -221,5 +222,7 @@ public class RobotConfigMaster_RR {
         double cm2 = distanceSensor_2.getDistance(DistanceUnit.CM);
         return cm2;
     }
+
+
 
 }

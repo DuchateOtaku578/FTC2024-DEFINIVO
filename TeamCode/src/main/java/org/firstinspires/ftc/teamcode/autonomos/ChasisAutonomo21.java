@@ -83,7 +83,7 @@ public class ChasisAutonomo21 extends LinearOpMode {
                 drive.followTrajectorySequence(trajSeq2);
             } else {
                 drive.followTrajectorySequence(trajSeq3);
-                if (robot.distanciaCentimetros()<40){
+                if(robot.distanciaCentimetros()<40){
                     drive.followTrajectorySequence(trajSeq4);
                     drive.followTrajectorySequence(trajSeq5);
                 } else

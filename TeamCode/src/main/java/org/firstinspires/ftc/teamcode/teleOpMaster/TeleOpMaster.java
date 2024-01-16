@@ -44,6 +44,10 @@ public class  TeleOpMaster extends LinearOpMode {
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
+            telemetry.addLine("------------Sensores-------------");
+            telemetry.addData("Distancia cm: ", robot.distanciaCentimetros());
+            telemetry.addData("Distancia 2: ",robot.distanciaCentimetros_2());
+
             telemetry.update();
 
             //control elevador

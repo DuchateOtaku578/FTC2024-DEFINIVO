@@ -18,7 +18,7 @@ import org.opencv.core.Mat;
 import kotlin.time.FormatToDecimalsKt;
 
 //@Disabled
-@Autonomous(name="Autonomo azul derecha", group="Pushbot")
+@Autonomous(name="Autonomo azul der M->I", group="Pushbot")
 
 public class ChasisAutonomo2 extends LinearOpMode {
 

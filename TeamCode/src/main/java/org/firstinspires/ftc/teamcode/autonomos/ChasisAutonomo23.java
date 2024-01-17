@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 //@Disabled
-@Autonomous(name="Autonomo rojo derecha", group="Pushbot")
+@Autonomous(name="Autonomo rojo der M->D", group="Pushbot")
 
 public class ChasisAutonomo23 extends LinearOpMode {
 

@@ -80,7 +80,7 @@ public class RobotConfigMaster_RR {
 
         elevador_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevador_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        gancho.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        gancho.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         usarUsingEncoder(elevador_1,elevador_2);
 
     }
@@ -165,30 +165,32 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.63);
-        servoIzquierda.setPosition(0.63);
+        servoDerecha.setPosition(0.62);
+        servoIzquierda.setPosition(0.62);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.85);
-        servoIzquierda.setPosition(0.85);
+        servoDerecha.setPosition(0.77);
+        servoIzquierda.setPosition(0.77);
     }
 
     public void enrollarGancho() {
+        usarUsingEncoder(gancho);
         gancho.setPower(1);
     }
 
     public void mantenerGancho() {
-        gancho.setPower(0);
-        gancho.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE );
+        gancho.setTargetPosition(gancho.getCurrentPosition());
+        usarRunToPosition(gancho);
+        gancho.setPower(1);
     }
 
     public void desenrrollarGancho(){
+        usarUsingEncoder(gancho);
         gancho.setPower(-1);
     }
 
     public void cerrarGarraDer(){
-
         pinzaDer.setPosition(0.74);
     }
 

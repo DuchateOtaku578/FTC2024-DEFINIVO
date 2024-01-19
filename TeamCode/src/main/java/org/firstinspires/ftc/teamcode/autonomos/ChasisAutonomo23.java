@@ -49,7 +49,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
                     robot.mantenerElevadorBrake();
                 })
                 .build();
-
+//0.9-0.7
         TrajectorySequence trayectoria5 = drive.trajectorySequenceBuilder(trayectoria4.end())
                 .back(10).addTemporalMarker(0.1, () ->{
                     robot.bajarElevador(0.8);
@@ -68,9 +68,9 @@ public class ChasisAutonomo23 extends LinearOpMode {
                 .back(10).addTemporalMarker(0.1, () ->{
                     robot.subirGarra();
                     robot.subirElevador(0.8);
-                }).addTemporalMarker(0.1 + 1.2, () -> {
+                }).addTemporalMarker(0.1 + 1, () -> {
                     robot.mantenerElevadorBrake();
-                }).lineToSplineHeading(new Pose2d(52, -40.5, Math.toRadians(0)))
+                }).lineToSplineHeading(new Pose2d(52, -43, Math.toRadians(0)))
                         .build();
 
         TrajectorySequence trayectoria8 = drive.trajectorySequenceBuilder(trayectoria7.end())
@@ -82,7 +82,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
                 }).addTemporalMarker(0.1 + 0.8, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .strafeRight(19)
+                .strafeRight(20)
                 .forward(16.5)
                         .build();
 
@@ -94,7 +94,8 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
     TrajectorySequence trajectoria10 = drive.trajectorySequenceBuilder(trajectoria9.end())
             .back(10)
-            .lineToSplineHeading(new Pose2d(52 , -28.7, Math.toRadians(0))).addTemporalMarker(0.1,() ->{
+            .lineToSplineHeading(new Pose2d(52 , -29
+                    , Math.toRadians(0))).addTemporalMarker(0.1,() ->{
                 robot.subirGarra();
                 robot.subirElevador(0.7);
         }).addTemporalMarker(0.1 + 1.1 , () ->{
@@ -104,7 +105,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
     TrajectorySequence trayectoria11 = drive.trajectorySequenceBuilder(trajectoria10.end())
             .back(10)
-            .strafeRight(26.5).addTemporalMarker(0.1, () ->{
+            .strafeRight(28).addTemporalMarker(0.1, () ->{
                 robot.bajarElevador(0.7);
             }).addTemporalMarker(0.1 + 0.7, () ->{
                 robot.mantenerElevadorBrake();
@@ -132,7 +133,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
             }else {
                 drive.followTrajectorySequence(trayectoria2);
-                if (robot.distanciaCentimetros() <=20) {
+                if (robot.distanciaCentimetros() <=30) {
                     robot.bajarGarra();
                     sleep(300);
                     drive.followTrajectorySequence(trayectoria6);

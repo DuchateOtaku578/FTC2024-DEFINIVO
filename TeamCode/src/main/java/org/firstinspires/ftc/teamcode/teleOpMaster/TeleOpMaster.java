@@ -19,7 +19,10 @@ public class  TeleOpMaster extends LinearOpMode {
         robot.init(hardwareMap, telemetry);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.subirGarra();
         waitForStart();
+
+        boolean tope = true;
 
 
 
@@ -44,20 +47,26 @@ public class  TeleOpMaster extends LinearOpMode {
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
+            telemetry.addData("Tope: ", tope);
             telemetry.addLine("------------Sensores-------------");
-            telemetry.addData("Distancia cm: ", robot.distanciaCentimetros());
-            telemetry.addData("Distancia 2: ",robot.distanciaCentimetros_2());
-
+            telemetry.addData("Distancia cm izq: ", robot.distanciaCentimetros());
+            telemetry.addData("Distancia cm der: ",robot.distanciaCentimetros_2());
             telemetry.update();
 
+
+            if(gamepad2.b){
+                tope = false;
+            }else if(gamepad2.back)
+                tope = true;
             //control elevador
-            if(gamepad2.right_bumper){
+            if(gamepad2.right_bumper && robot.elevador_1.getCurrentPosition() < 3600 && robot.elevador_2.getCurrentPosition() < 3600 && tope){
                 robot.subirElevador(1);
             } else if(gamepad2.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0){
                 robot.bajarElevador(1);
-            }else {
+            }else if(gamepad2.right_bumper && tope == false){
+                robot.subirElevador(1);
+            }else
                 robot.mantenerElevador();
-            }
 
             //controles de la garra
 

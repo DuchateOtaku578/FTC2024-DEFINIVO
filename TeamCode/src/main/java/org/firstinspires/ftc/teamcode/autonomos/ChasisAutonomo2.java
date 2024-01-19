@@ -111,8 +111,8 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajSeq10 = drive.trajectorySequenceBuilder(trajSeq6.end())
                 .strafeTo(new Vector2d(54,37)).addTemporalMarker(0.2, ()->{
-                    robot.subirElevador(0.7);
-                }).addTemporalMarker(0.2 + 0.8,() ->{
+                    robot.subirElevador(0.8);
+                }).addTemporalMarker(0.2 + 0.85,() ->{
                     robot.mantenerElevadorBrake();
                 })
                 .build();
@@ -130,8 +130,8 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajSeq13 = drive.trajectorySequenceBuilder(trajSeq8.end())
                 .strafeTo(new Vector2d(53,30)).addTemporalMarker(0.2, ()->{
-                    robot.subirElevador(0.7);
-                }).addTemporalMarker(0.2 + 0.8,() ->{
+                    robot.subirElevador(0.8);
+                }).addTemporalMarker(0.2 + 0.9,() ->{
                     robot.mantenerElevadorBrake();
                 })
                 .build();
@@ -161,7 +161,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         if(!isStopRequested()) {
             drive.followTrajectorySequence(trajSeq);
-            if(robot.distanciaCentimetros() <=20){
+            if(robot.distanciaCentimetros() <=30){
                 //morado
                 drive.followTrajectorySequence(trajSec2);
                 robot.bajarGarra();
@@ -173,13 +173,13 @@ public class ChasisAutonomo2 extends LinearOpMode {
                 drive.followTrajectorySequence(trajSeq6);
                 drive.followTrajectorySequence(trajSeq10);
                 robot.abrirGarraDer();
-                sleep(100);
+                sleep(300);
                 drive.followTrajectorySequence(trajseq11);
 
 
             }else {
                 drive.followTrajectorySequence(trajSeq3);
-                if (robot.distanciaCentimetros() <=20) {
+                if (robot.distanciaCentimetros() <=30) {
                     drive.followTrajectorySequence(trajSeq7);
                     robot.bajarGarra();
                     robot.abrirGarraIzq();
@@ -188,7 +188,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
                     drive.followTrajectorySequence(trajSeq8);
                     drive.followTrajectorySequence(trajSeq13);
                     robot.abrirGarraDer();
-                    sleep(500);
+                    sleep(900);
                     drive.followTrajectorySequence(trajseq14);
                 } else {
                     drive.followTrajectorySequence(trajSeq5);

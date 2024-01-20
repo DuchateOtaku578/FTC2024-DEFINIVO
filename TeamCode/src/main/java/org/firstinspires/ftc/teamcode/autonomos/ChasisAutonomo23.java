@@ -82,7 +82,8 @@ public class ChasisAutonomo23 extends LinearOpMode {
                 }).addTemporalMarker(0.1 + 0.8, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .strafeRight(20)
+                //sr en 20
+                .strafeRight(17.5)
                 .forward(16.5)
                         .build();
 
@@ -119,7 +120,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
         if(!isStopRequested()) {
             drive.followTrajectorySequence(trajSeq);
-            if(robot.distanciaCentimetros() <=30){
+            if(robot.distanciaCentimetros() <=35){
                 drive.followTrajectorySequence(trayectoria3);
                 robot.abrirGarraDer();
                 sleep(200);
@@ -133,7 +134,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
             }else {
                 drive.followTrajectorySequence(trayectoria2);
-                if (robot.distanciaCentimetros() <=30) {
+                if (robot.distanciaCentimetros() <=35) {
                     robot.bajarGarra();
                     sleep(300);
                     drive.followTrajectorySequence(trayectoria6);

@@ -170,8 +170,8 @@ public class RobotConfigMaster_RR {
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.77);
-        servoIzquierda.setPosition(0.77);
+        servoDerecha.setPosition(0.77); //77
+        servoIzquierda.setPosition(0.77);  //77
     }
 
     public void enrollarGancho() {

@@ -107,8 +107,8 @@ public class ChasisAutonomo23 extends LinearOpMode {
     TrajectorySequence trayectoria11 = drive.trajectorySequenceBuilder(trajectoria10.end())
             .back(10)
             .strafeRight(28).addTemporalMarker(0.1, () ->{
-                robot.bajarElevador(0.7);
-            }).addTemporalMarker(0.1 + 0.7, () ->{
+                robot.bajarElevador(0.8);
+            }).addTemporalMarker(0.1 + 0.8, () ->{
                 robot.mantenerElevadorBrake();
             })
             .forward(14)

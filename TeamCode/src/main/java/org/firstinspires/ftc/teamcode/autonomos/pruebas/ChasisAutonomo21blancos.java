@@ -1,24 +1,25 @@
-package org.firstinspires.ftc.teamcode.autonomos;
+package org.firstinspires.ftc.teamcode.autonomos.pruebas;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster_RR;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
-import org.opencv.core.Mat;
 
 //@Disabled
 // Gabo = Arnold
 //Beto = úrsula
 //Nadia = Olga
 //Orión = Petra
-@Autonomous(name="Autonomo rojo izq M->D", group="Pushbot")
+//@Disabled
+@Autonomous(name="Autonomo rojo izq M->D uwu", group="Pushbot")
 
-public class ChasisAutonomo21 extends LinearOpMode {
+public class ChasisAutonomo21blancos extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -29,6 +30,8 @@ public class ChasisAutonomo21 extends LinearOpMode {
         sleep(500);
         drive.setPoseEstimate(startPose);
         robot.subirGarra();
+
+        double slowerVelocity = 30;
 
         Pose2d nadia = drive.getPoseEstimate();
         Pose2d uwu = new Pose2d(nadia.getX(), nadia.getY(), nadia.getHeading());
@@ -53,11 +56,9 @@ public class ChasisAutonomo21 extends LinearOpMode {
 
         TrajectorySequence trajSeq2 = drive.trajectorySequenceBuilder(trajSeq1.end())
                 .back(13)
-                .lineToLinearHeading(new Pose2d(38,-12, Math.toRadians(0))).addTemporalMarker(0.1, () ->{
-                    robot.subirGarra();
-                    robot.cerrarGarraDer();
+                .lineToSplineHeading(new Pose2d(-55,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.bajarGarra();
                 })
-                .splineToConstantHeading(new Vector2d(50, -28.7), Math.toRadians(0))
                 .build();
 
         //Centro Detectado
@@ -71,7 +72,6 @@ public class ChasisAutonomo21 extends LinearOpMode {
                     robot.subirGarra();
                     robot.cerrarGarraDer();
                 })
-                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0)))
                 .build();
 
         //Derecho
@@ -96,7 +96,7 @@ public class ChasisAutonomo21 extends LinearOpMode {
                 .back(10)
                 .strafeRight(29.5).addTemporalMarker(0.1, () ->{
                     robot.bajarElevador(0.8);
-                }).addTemporalMarker(0.1 + 0.8, () ->{
+                }).addTemporalMarker(0.1 + 1, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(14)
@@ -136,6 +136,71 @@ public class ChasisAutonomo21 extends LinearOpMode {
                 .forward(15)
                 .build();
 
+        TrajectorySequence enfrenteuwu = drive.trajectorySequenceBuilder(trajSeq2.end())
+                .forward(4.5)
+                .build();
+
+        TrajectorySequence spleinsuwu = drive.trajectorySequenceBuilder(enfrenteuwu.end())
+                .back(20)
+                .strafeRight(10)
+                .lineToSplineHeading(new Pose2d(18, -10 , Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(49, -31), Math.toRadians(0))
+                .build();
+
+        TrajectorySequence otrosblancos = drive.trajectorySequenceBuilder(spleinsuwu.end())
+                .lineToSplineHeading(new Pose2d(30, -13, Math.toRadians(180)))
+                .splineToConstantHeading(new Vector2d(-40, 0), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(slowerVelocity, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .addTemporalMarker(0.1, () ->{
+                    robot.bajarGarra();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(0.1 + 0.6, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .build();
+
+        TrajectorySequence enfrenteDos = drive.trajectorySequenceBuilder(otrosblancos.end())
+                .forward(19)
+                .build();
+
+        TrajectorySequence trayectoria17 = drive.trajectorySequenceBuilder(spleinsuwu.end())
+                .back(12)
+                .strafeRight(29).addTemporalMarker(0.1, () ->{
+                    robot.bajarElevador(0.8);
+                }).addTemporalMarker(0.1 + 1.1, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .forward(14)
+                .build();
+
+        TrajectorySequence blancosDosUwuOnichan = drive.trajectorySequenceBuilder(trajSeq4.end())
+                .back(10)
+                .lineToSplineHeading(new Pose2d(-55,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.bajarGarra();
+                })
+                .build();
+
+        TrajectorySequence spleinPalDosuwu = drive.trajectorySequenceBuilder(blancosDosUwuOnichan.end())
+                .back(20)
+                .strafeRight(10).addTemporalMarker(0.1, () ->{
+                    robot.bajarElevador(0.7);
+                }).addTemporalMarker(0.1 + 0.5, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .lineToSplineHeading(new Pose2d(18, -10 , Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(49, -39), Math.toRadians(0))
+                .build();
+
+        TrajectorySequence estacionarceDosUwu = drive.trajectorySequenceBuilder(spleinPalDosuwu.end())
+                .back(10)
+                .strafeRight(22.5).addTemporalMarker(0.1, () ->{
+                    robot.bajarElevador(0.7);
+                }).addTemporalMarker(0.1 + 1.1, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .forward(14)
+                .build();
+
         telemetry.update();
 
         waitForStart();
@@ -147,12 +212,29 @@ public class ChasisAutonomo21 extends LinearOpMode {
                 robot.abrirGarraDer();
                 sleep(300);
                 drive.followTrajectorySequence(trajSeq2);
+                sleep(100);
+                robot.subirElevador(0.6);
+                sleep(600);
+                robot.mantenerElevadorBrake();
+                drive.followTrajectorySequence(enfrenteuwu);
+                robot.cerrarGarraDer();
+                sleep(500);
+                robot.subirGarra();
+                drive.followTrajectorySequence(spleinsuwu);
                 robot.subirElevador(0.7);
-                sleep(1200);
+                sleep(1250);
                 robot.mantenerElevadorBrake();
                 robot.abrirGarraIzq();
                 sleep(200);
-                drive.followTrajectorySequence(trayectoria11);
+                robot.abrirGarraDer();
+                sleep(500);
+                drive.followTrajectorySequence(trayectoria17);
+
+
+
+               /* robot.abrirGarraIzq();
+                sleep(200);
+                drive.followTrajectorySequence(trayectoria11);*/
             } else {
                 drive.followTrajectorySequence(trajSeq3);
                 if( robot.distanciaCentimetros()<=20){
@@ -160,14 +242,25 @@ public class ChasisAutonomo21 extends LinearOpMode {
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     sleep(500);
-                    drive.followTrajectorySequence(trajSeq5);
-                    drive.followTrajectorySequence(trayectoria12);
+                    drive.followTrajectorySequence(blancosDosUwuOnichan);
+                    sleep(100);
+                    robot.subirElevador(0.6);
+                    sleep(650);
+                    robot.mantenerElevadorBrake();
+                    drive.followTrajectorySequence(enfrenteuwu);
+                    robot.cerrarGarraDer();
+                    sleep(500);
+                    robot.subirGarra();
+                    drive.followTrajectorySequence(spleinPalDosuwu);
                     robot.subirElevador(0.7);
-                    sleep(1000);
+                    sleep(1250);
                     robot.mantenerElevadorBrake();
                     robot.abrirGarraIzq();
-                    sleep(850);
-                    drive.followTrajectorySequence(trayectoria13);
+                    sleep(200);
+                    robot.abrirGarraDer();
+                    sleep(500);
+                    drive.followTrajectorySequence(estacionarceDosUwu);
+
 
                 } else {
                     drive.followTrajectorySequence(trajSeq6);

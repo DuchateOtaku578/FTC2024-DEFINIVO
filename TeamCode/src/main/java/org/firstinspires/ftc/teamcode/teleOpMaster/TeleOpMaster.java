@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster_RR;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -23,6 +24,9 @@ public class  TeleOpMaster extends LinearOpMode {
         waitForStart();
 
         boolean tope = true;
+        boolean reset = true;
+
+        Gamepad gamepad;
 
 
         while (!isStopRequested()) {
@@ -46,63 +50,64 @@ public class  TeleOpMaster extends LinearOpMode {
             telemetry.addLine("------------Elevador------------");
             telemetry.addData("Pulsos elevador Derecha: ", robot.elevador_1.getCurrentPosition());
             telemetry.addData("Puslos elevador Izquierda: ", robot.elevador_2.getCurrentPosition());
-            telemetry.addData("Tope: ", tope);
-            // telemetry.addLine("------------Sensores-------------");
-            //telemetry.addData("Distancia cm izq: ", robot.distanciaCentimetros());
-            // telemetry.addData("Distancia cm der: ",robot.distanciaCentimetros_2());
             telemetry.update();
 //controles elevador
 
-            if (gamepad2.b) {
-                tope = false;
-            } else if (gamepad2.back)
-                tope = true;
-            //control elevador
-            if (gamepad2.right_bumper && robot.elevador_1.getCurrentPosition() < 3600 && robot.elevador_2.getCurrentPosition() < 3600 && tope) {
-                robot.subirElevador(1);
-            } else if (gamepad2.left_bumper && robot.elevador_1.getCurrentPosition() > 0 && robot.elevador_2.getCurrentPosition() > 0 && tope) {
-                robot.bajarElevador(1);
-            } else if (gamepad2.right_bumper && tope == false) {
-                robot.subirElevador(1);
-            } else {
-                if (gamepad2.left_bumper && !tope) {
+
+
+                if (gamepad2.left_stick_y < -0.5) {
+                    robot.subirElevador(1);
+                } else if (gamepad2.left_stick_y > 0.5) {
                     robot.bajarElevador(1);
-                } else robot.mantenerElevador();
-
-                //controles de la garra
-
-                if (gamepad2.left_trigger > 0.1) {
-                    robot.abrirGarraIzq();
-                } else
-                    robot.cerrarGarraIzq();
-
-                if (gamepad2.right_trigger > 0.1) {
-                    robot.abrirGarraDer();
-                } else
-                    robot.cerrarGarraDer();
-
-                if (gamepad2.a) {
-                    robot.bajarGarra();
-                } else if (gamepad2.y) {
-                    robot.subirGarra();
-                }
-
-                if (gamepad2.dpad_down) {
-                    robot.enrollarGancho();
-                } else if (gamepad2.dpad_up) {
-                    robot.desenrrollarGancho();
                 } else {
-                    robot.mantenerGancho();
+                    robot.mantenerElevador();
                 }
+                    //controles de la garra
 
-                if (gamepad2.x && gamepad2.left_bumper) {
-                    robot.ligaAvion.setPosition(0.4);
+                    if (gamepad2.left_trigger > 0.1) {
+                        robot.abrirGarraIzq();
+                    } else
+                        robot.cerrarGarraIzq();
+
+                    if (gamepad2.right_trigger > 0.1) {
+                        robot.abrirGarraDer();
+                    } else
+                        robot.cerrarGarraDer();
+
+
+
+                    if (gamepad2.a) {
+                        robot.bajarGarra();
+                    } else if (gamepad2.y) {
+                        robot.subirGarra();
+                    }
+
+
+                    if(gamepad2.left_bumper && gamepad2.right_bumper){
+                        robot.garraModoNadiaInsanaWaza();
+                    }
+
+
+        //controles gancho
+
+                    if (gamepad2.dpad_down) {
+                        robot.enrollarGancho();
+                    } else if (gamepad2.dpad_up) {
+                        robot.desenrrollarGancho();
+                    } else {
+                        robot.mantenerGancho();
+                    }
+        //controles elevador
+                    if (gamepad2.x && gamepad2.left_bumper) {
+                        robot.ligaAvion.setPosition(0.4);
+                    }
+
                 }
-
             }
         }
-    }
-}
+
+
+ 
 
 
 

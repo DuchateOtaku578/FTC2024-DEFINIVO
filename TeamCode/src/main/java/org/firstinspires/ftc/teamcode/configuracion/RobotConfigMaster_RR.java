@@ -165,13 +165,13 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.62);
-        servoIzquierda.setPosition(0.62);
+        servoDerecha.setPosition(0.65);
+        servoIzquierda.setPosition(0.65);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.77); //77
-        servoIzquierda.setPosition(0.77);  //77
+        servoDerecha.setPosition(0.82); //77
+        servoIzquierda.setPosition(0.82);  //77
     }
 
     public void enrollarGancho() {
@@ -191,11 +191,11 @@ public class RobotConfigMaster_RR {
     }
 
     public void cerrarGarraDer(){
-        pinzaDer.setPosition(0.74);
+        pinzaDer.setPosition(0.78);
     }
 
     public void cerrarGarraIzq(){
-        pinzaIzq.setPosition(0.3);
+        pinzaIzq.setPosition(0.25);
     }
 
     public void abrirGarraDer(){
@@ -204,6 +204,11 @@ public class RobotConfigMaster_RR {
 
     public void abrirGarraIzq(){
         pinzaIzq.setPosition(0.5);
+    }
+
+    public void garraModoNadiaInsanaWaza (){
+        pinzaIzq.setPosition(0.1);
+        pinzaDer.setPosition(0.9);
     }
 
 

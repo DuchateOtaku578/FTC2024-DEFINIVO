@@ -1,134 +1,50 @@
 package org.firstinspires.ftc.teamcode.configuracion;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.R;
+@TeleOp(name= "teleop")
+public class RobotConfigMaster extends LinearOpMode {
 
-public class RobotConfigMaster {
-
-    //CONTROL HUB
-    public DcMotor motor = null;// 0 ELEVADOR
-    public DcMotor motor_1 = null; //1 GIRO
-
-    //EXPANSION HUB
     public DcMotor enfrenteDer = null; //0
+
     public DcMotor enfrenteIzq = null; //1
     public DcMotor atrasDer = null; //2
-    public DcMotor atrasIzq = null; //3
-
-    public DcMotor[] motores = {enfrenteDer,enfrenteIzq, atrasDer, atrasIzq};
-
-    public Servo servo = null;
-    public Servo servo_2 = null;
+    public DcMotor atrasIzq = null; //
 
 
-
-    HardwareMap hwMap = null;
-    private ElapsedTime period = new ElapsedTime();
-
-    public RobotConfigMaster() {
-
-    }
-
-    public void init(HardwareMap ahwMap, Telemetry telemetry) {
-
-        hwMap = ahwMap;
-
-        motores[0] = hwMap.get(DcMotor.class, "enfrenteDer");
-        motores[1] = hwMap.get(DcMotor.class, "enfrenteIzq");
-        motores[2] = hwMap.get(DcMotor.class, "atrasDer");
-        motores[3]= hwMap.get(DcMotor.class, "atrasIzq");
-
-        enfrenteDer = motores[0];
-        enfrenteIzq = motores[1];
-        atrasDer = motores[2];
-        atrasIzq = motores[3];
-
-        motor = hwMap.get(DcMotor.class, "motor");
-        motor_1 = hwMap.get(DcMotor.class, "motor_1");
-
-        telemetry.addLine("Motores inicializados...");
-        telemetry.update();
-
-        servo = hwMap.get(Servo.class, "servo");
-        servo_2 = hwMap.get(Servo.class, "servo_2");
+    @Override
+    public void runOpMode(){
 
 
 
+        enfrenteDer= hardwareMap.get(DcMotor.class, "enfrenteDer");
+        enfrenteIzq = hardwareMap.get(DcMotor.class, "enfrenteIzq");
+        atrasDer = hardwareMap.get(DcMotor.class, "atrasDer");
+        atrasIzq= hardwareMap.get(DcMotor.class, "atrasIzq");
 
-        telemetry.addLine("Sensores inicializados...");
-        telemetry.update();
-
-
-        reversa(atrasIzq , enfrenteIzq, motor);
-        derecho(atrasDer , enfrenteDer, motor_1);
-
-        telemetry.addLine("Cambio de giro de motores hecho...");
-        telemetry.update();
+        enfrenteDer.setDirection(DcMotorSimple.Direction.FORWARD);
+        enfrenteIzq.setDirection(DcMotorSimple.Direction.FORWARD);
+        atrasDer.setDirection(DcMotorSimple.Direction.REVERSE);
+        atrasIzq.setDirection(DcMotorSimple.Direction.REVERSE);
 
         enfrenteDer.setPower(0);
         enfrenteIzq.setPower(0);
         atrasDer.setPower(0);
         atrasIzq.setPower(0);
-        telemetry.addLine("Motores al 0%...");
-        telemetry.update();
-
-        usarUsingEncoder(enfrenteDer, enfrenteIzq, atrasDer, atrasIzq);
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        telemetry.addLine("Motores configurados...");
-        telemetry.update();
-
-        telemetry.addData("Hardware", "Inicializado");
-        telemetry.update();
-    }
 
 
-
-
-
-
-
-    public void reversa(DcMotor... motores) {
-        for (DcMotor motor : motores) {
-            motor.setDirection(DcMotor.Direction.REVERSE);
-        }
-    }
-
-    public void derecho(DcMotor... motores) {
-        for (DcMotor motor : motores) {
-            motor.setDirection(DcMotor.Direction.FORWARD);
-        }
-    }
-
-    public void usarWithoutEncoder(DcMotor... motores) {
-        for (DcMotor motor : motores) {
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-    }
-
-    public void usarUsingEncoder(DcMotor... motores) {
-        for (DcMotor motor : motores) {
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    public void usarRunToPosition(DcMotor... motores) {
-        for (DcMotor motor : motores) {
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-    }
-
-    public void moverseDistanciaMantener_1(double potencia , int distance){
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        motor.setTargetPosition(distance);
-
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motor.setPower(potencia);
+        enfrenteDer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enfrenteIzq.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        atrasIzq.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        atrasIzq.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }

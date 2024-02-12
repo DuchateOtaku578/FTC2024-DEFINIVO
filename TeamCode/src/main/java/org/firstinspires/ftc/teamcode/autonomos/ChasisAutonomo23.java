@@ -56,8 +56,7 @@ public class ChasisAutonomo23 extends LinearOpMode {
                 }).addTemporalMarker(0.1 + 0.7, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .strafeRight(26)
-                .forward(15)
+                .strafeLeft(10)
                 .build();
 
         TrajectorySequence trayectoria6 = drive.trajectorySequenceBuilder(trajSeq.end())
@@ -83,8 +82,8 @@ public class ChasisAutonomo23 extends LinearOpMode {
                     robot.mantenerElevadorBrake();
                 })
                 //sr en 20
-                .strafeRight(19)
-                .forward(16.5)
+                .strafeLeft(15)
+
                         .build();
 
         TrajectorySequence trajectoria9 = drive.trajectorySequenceBuilder(trayectoria2.end())
@@ -106,12 +105,12 @@ public class ChasisAutonomo23 extends LinearOpMode {
 
     TrajectorySequence trayectoria11 = drive.trajectorySequenceBuilder(trajectoria10.end())
             .back(10)
-            .strafeRight(29.5).addTemporalMarker(0.1, () ->{
+            .strafeLeft(20).addTemporalMarker(0.1, () ->{
                 robot.bajarElevador(0.8);
             }).addTemporalMarker(0.1 + 0.8, () ->{
                 robot.mantenerElevadorBrake();
             })
-            .forward(14)
+
             .build();
 
         telemetry.update();

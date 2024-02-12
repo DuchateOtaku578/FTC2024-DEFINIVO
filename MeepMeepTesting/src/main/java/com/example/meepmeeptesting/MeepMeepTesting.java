@@ -10,15 +10,17 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
 
+
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 40, Math.toRadians(142), Math.toRadians(142), 15.66)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35, 62, Math.toRadians(-90)))
-                                .forward(18)
-                                .strafeRight(18)
+                        drive.trajectorySequenceBuilder(new Pose2d(-32, -62, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d())
                                 .build()
                 );
+
+
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)

@@ -127,6 +127,11 @@ public class RobotConfigMaster_RR {
         elevador_2.setPower(potencia);
     }
 
+    public void subirElevadorSinEncoder(double potencia){
+        elevador_1.setPower(potencia);
+        elevador_2.setPower(potencia);
+    }
+
     public void subirElevador(double potencia, int pulsos){
         elevador_1.setTargetPosition(-pulsos);
         elevador_2.setTargetPosition(-pulsos);
@@ -144,8 +149,14 @@ public class RobotConfigMaster_RR {
         elevador_2.setPower(-potencia);
     }
 
-    public void bajarElevador(double potencia){
+    public void
+
+    bajarElevador(double potencia){
         usarUsingEncoder(elevador_1,elevador_2);
+        elevador_1.setPower(-potencia);
+        elevador_2.setPower(-potencia);
+    }
+    public void bajarElevadorSinEncoder(double potencia){
         elevador_1.setPower(-potencia);
         elevador_2.setPower(-potencia);
     }
@@ -165,14 +176,15 @@ public class RobotConfigMaster_RR {
     }
 
     public void bajarGarra(){
-        servoDerecha.setPosition(0.65);
-        servoIzquierda.setPosition(0.65);
+        servoDerecha.setPosition(0.53 );
+        servoIzquierda.setPosition(0.53);
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.82); //77
-        servoIzquierda.setPosition(0.82);  //77
+        servoDerecha.setPosition(0.7); //77
+        servoIzquierda.setPosition(0.7);  //77
     }
+
 
     public void enrollarGancho() {
         usarUsingEncoder(gancho);
@@ -191,7 +203,7 @@ public class RobotConfigMaster_RR {
     }
 
     public void cerrarGarraDer(){
-        pinzaDer.setPosition(0.78);
+        pinzaDer.setPosition(0.79);
     }
 
     public void cerrarGarraIzq(){
@@ -199,7 +211,7 @@ public class RobotConfigMaster_RR {
     }
 
     public void abrirGarraDer(){
-        pinzaDer.setPosition(0.5);
+        pinzaDer.setPosition(0.48);
     }
 
     public void abrirGarraIzq(){

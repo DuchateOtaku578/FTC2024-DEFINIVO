@@ -43,12 +43,12 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
     double width = 0;
 
     private OpenCvCamera controlHubCam;  // Use OpenCvCamera class from FTC SDK
-    private static final int CAMERA_WIDTH = 1280; // width  of wanted camera resolution
-    private static final int CAMERA_HEIGHT = 720; // height of wanted camera resolution
+    private static final int CAMERA_WIDTH = 640; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT = 360; // height of wanted camera resolution
 
     // Calculate the distance using the formula
     public static final double objectWidthInRealWorldUnits = 3.75;  // Replace with the actual width of the object in real-world units
-    public static final double focalLength = 720    ;  // Replace with the focal length of the camera in pixels
+    public static final double focalLength =1280;  // Replace with the focal length of the camera in pixels
 
     public int randomizacion;
 
@@ -69,38 +69,34 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
 
 
 
-        Pose2d nadia = drive.getPoseEstimate();
-        Pose2d uwu = new Pose2d(nadia.getX(), nadia.getY(), nadia.getHeading());
-
-
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .lineTo(new Vector2d(-42.5, -45))
                 .build();
 
-        TrajectorySequence trajSeq3 = drive.trajectorySequenceBuilder(trajSeq.end())
-                .forward(9.5)
-                .strafeRight(11.5)
-                .build();
+
 
 
         //Izquierda Detectada
         TrajectorySequence trajSeq1 = drive.trajectorySequenceBuilder(trajSeq.end())
-                .lineToLinearHeading(new Pose2d(-47, -15, Math.toRadians(270  - 1e-6))).addTemporalMarker(0.1, () ->{
+                .lineToLinearHeading(new Pose2d(-47, -19, Math.toRadians(270  - 1e-6))).addTemporalMarker(0.1, () ->{
                     robot.bajarGarra();
                 })
                 .build();
 
         TrajectorySequence trajSeq2 = drive.trajectorySequenceBuilder(trajSeq1.end())
-                .back(16)
-                .lineToLinearHeading(new Pose2d(38,-12, Math.toRadians(0))).addTemporalMarker(0.1, () ->{
+                .back(10)
+                .lineToSplineHeading(new Pose2d(-55,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
                     robot.subirGarra();
-                    robot.cerrarGarraDer();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(0.1 + 0.72 , () ->{
+                    robot.mantenerElevadorBrake();
+                    robot.bajarGarra();
                 })
-                .splineToConstantHeading(new Vector2d(50, -28.7), Math.toRadians(0))
+                .forward(4.2)
                 .build();
 
         //Centro Detectado
-        TrajectorySequence trajSeq4 = drive.trajectorySequenceBuilder(trajSeq3.end())
+       /* TrajectorySequence trajSeq4 = drive.trajectorySequenceBuilder(trajSeq3.end())
                 .strafeLeft(10)
                 .lineToSplineHeading(new Pose2d(-39, -14.5, Math.toRadians(270)))
                 .build();
@@ -111,10 +107,10 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                     robot.cerrarGarraDer();
                 })
                 .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0)))
-                .build();
+                .build();*/
 
         //Derecho
-        TrajectorySequence trajSeq6 = drive.trajectorySequenceBuilder(trajSeq3.end())
+       /* TrajectorySequence trajSeq6 = drive.trajectorySequenceBuilder(trajSeq3.end())
                 .splineToLinearHeading(new Pose2d(-55, -34,Math.toRadians(0)), Math.toRadians(90))
                 .splineTo(new Vector2d(-35, -33), Math.toRadians(0)).addTemporalMarker(0.1, () ->{
                     robot.bajarGarra();
@@ -129,34 +125,23 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(-34, 0),Math.toRadians(270))
                 .splineToConstantHeading(new Vector2d(30, -12), Math.toRadians(0))
                 .build();
-
+*/
 //+ 0.7-0.8 temporal marker
         TrajectorySequence trayectoria11 = drive.trajectorySequenceBuilder(trajSeq2.end())
-                .back(10)
-                .strafeRight(29.5).addTemporalMarker(0.1, () ->{
-                    robot.bajarElevador(0.8);
-                }).addTemporalMarker(0.1 + 0.8, () ->{
-                    robot.mantenerElevadorBrake();
-                })
-                .forward(14)
+                .lineToLinearHeading(new Pose2d(-35 ,-5, Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(12, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(48.8, -32), Math.toRadians(0))
                 .build();
 
-        TrajectorySequence trayectoria12 = drive.trajectorySequenceBuilder(trajSeq5.end())
-                .splineToConstantHeading(new Vector2d(50, -35.25
-                ),Math.toRadians(0))
+        TrajectorySequence trayectoria11b = drive.trajectorySequenceBuilder(trajSeq2.end())
+                .lineToLinearHeading(new Pose2d(-35 ,-5 , Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(9, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(48.8, -41),Math.toRadians(180))
                 .build();
 
-        TrajectorySequence trayectoria13 = drive.trajectorySequenceBuilder(trayectoria12.end())
-                .back(10)
-                .strafeRight(22.5).addTemporalMarker(0.1, () ->{
-                    robot.bajarElevador(0.7);
-                }).addTemporalMarker(0.1 + 0.92, () ->{
-                    robot.mantenerElevadorBrake();
-                })
-                .forward(14)
-                .build();
 
-        TrajectorySequence trayectoria14 = drive.trajectorySequenceBuilder(trajSeq7.end())
+
+      /*  TrajectorySequence trayectoria14 = drive.trajectorySequenceBuilder(trajSeq7.end())
                 .splineToConstantHeading(new Vector2d(50, -43),Math.toRadians(0)).addTemporalMarker(0.1, () ->{
                     robot.subirElevador(0.7);
                 }).addTemporalMarker(0.1 + 1.1, () ->{
@@ -173,58 +158,256 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                 })
                 .strafeRight(18)
                 .forward(15)
-                .build();
-    while(opModeInInit()) {
-        if (getDistance(width) >= 12 && getDistance(width) < 15){
-            randomizacion = 1;
-        }else
-        if(getDistance(width) >=15 && getDistance(width) <= 20){
-            randomizacion = 2;
-        }else
-            randomizacion = 3;
+                .build(); */
 
-        telemetry.addData("Randomizacion: ", randomizacion);
+        TrajectorySequence nueva1 = drive.trajectorySequenceBuilder(trayectoria11.end())
+                .lineToSplineHeading(new Pose2d(18,-8, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.cerrarGarraDer();
+                    robot.cerrarGarraIzq();
+                })
+                .lineToConstantHeading(new Vector2d(-30, -8))
+                .lineToConstantHeading(new Vector2d(-55, -12.2)).addTemporalMarker(5, () ->{
+                    robot.bajarGarra();
+                    robot.abrirGarraDer();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(5 + 0.46, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .forward(5)
+                .build();
+
+        TrajectorySequence trayectoria11a = drive.trajectorySequenceBuilder(nueva1.end())
+                .lineToLinearHeading(new Pose2d(-35 ,-5, Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(12, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(47.5, -33), Math.toRadians(0)).addTemporalMarker(3.5, () ->{
+                    robot.subirElevador(0.8);
+                }).addTemporalMarker(3.5 + 1.2, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+
+                .build();
+
+        TrajectorySequence trayectoria12 = drive.trajectorySequenceBuilder(startPose)
+                .lineToSplineHeading(new Pose2d(-46, -14.5, Math.toRadians(270)))
+                .strafeLeft(10)
+                .addTemporalMarker(0.5, () ->{
+                    robot.bajarGarra();
+                }).addSpatialMarker(new Vector2d(-40 , -14.5), () ->{
+                    robot.abrirGarraDer();
+                })
+                .back(10)
+                .build();
+
+        TrajectorySequence trajSeq2a= drive.trajectorySequenceBuilder(trayectoria12.end())
+                .lineToSplineHeading(new Pose2d(-50,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.subirGarra();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(0.1 + 0.72 , () ->{
+                    robot.mantenerElevadorBrake();
+                    robot.bajarGarra();
+                })
+                .forward(8)
+
+                .build();
+
+        TrajectorySequence trayectoriainsana1 = drive.trajectorySequenceBuilder(startPose)
+                .lineToLinearHeading(new Pose2d(-42, -33, Math.toRadians(0))).addTemporalMarker(0.1, () ->{
+                    robot.bajarGarra();
+                }).addSpatialMarker(new Vector2d(-34, -33), () ->{
+                    robot.abrirGarraDer();
+                })
+                .forward(8)
+                .back(5)
+                .build();
+
+        TrajectorySequence trajSeq2c= drive.trajectorySequenceBuilder(trayectoriainsana1.end())
+                .lineToSplineHeading(new Pose2d(-50,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.subirGarra();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(0.1 + 0.735 , () ->{
+                    robot.mantenerElevadorBrake();
+                    robot.bajarGarra();
+                })
+                .forward(8.5)
+                .build();
+
+        TrajectorySequence trayectoria11c = drive.trajectorySequenceBuilder(trajSeq2c.end())
+                .lineToLinearHeading(new Pose2d(-35 ,-5 , Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(9, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(49, -41),Math.toRadians(180))
+                .build();
+
+        TrajectorySequence nueva1c = drive.trajectorySequenceBuilder(trayectoria11c.end())
+                .lineToSplineHeading(new Pose2d(18,-8, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
+                    robot.cerrarGarraDer();
+                    robot.cerrarGarraIzq();
+                })
+                .lineToConstantHeading(new Vector2d(-30, -8))
+                .lineToConstantHeading(new Vector2d(-55, -12.5)).addTemporalMarker(5, () ->{
+                    robot.bajarGarra();
+                    robot.abrirGarraDer();
+                    robot.subirElevador(0.7);
+                }).addTemporalMarker(5 + 0.5 , () ->{
+                    robot.mantenerElevadorBrake();
+                })
+                .forward(5)
+                .build();
+
+
+        TrajectorySequence trayectoria11ac = drive.trajectorySequenceBuilder(nueva1c.end())
+                .lineToLinearHeading(new Pose2d(-35 ,-5, Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(12, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(49
+                        , -33), Math.toRadians(0)).addTemporalMarker(3.5, () ->{
+                    robot.subirElevador(0.8);
+                }).addTemporalMarker(3.2 + 1.6, () ->{
+                    robot.mantenerElevadorBrake();
+                })
+
+                .build();
+
+
+
+
+
+        while(opModeInInit()) {
+        if (getDistance(width) >= 51 && getDistance(width) < 57){
+            telemetry.addLine("Randomizacion: izquierda");
+        }else
+        if(getDistance(width) >=60 && getDistance(width) <= 65){
+            telemetry.addLine("Randomizacion: centro");
+        }else
+            telemetry.addLine("Randomizacion: derecha");
 
         telemetry.update();
     }
         waitForStart();
 
         if (!isStopRequested()) {
-            if (getDistance(width) >= 12 && getDistance(width) < 15){
+            if (getDistance(width) >= 51 && getDistance(width) < 57){
+                controlHubCam.stopStreaming();
+                controlHubCam.closeCameraDevice();
                 drive.followTrajectorySequence(trajSeq1);
                 robot.abrirGarraDer();
                 sleep(300);
                 drive.followTrajectorySequence(trajSeq2);
-                robot.subirElevador(0.7);
-                sleep(1200);
+                robot.cerrarGarraDer();
+                sleep(400);
+                robot.subirGarra();
+                robot.bajarElevador(0.6);
+                sleep(350);
+                robot.mantenerElevadorBrake();
+                drive.followTrajectorySequence(trayectoria11);
+                robot.subirElevador(1);
+                sleep(900);
                 robot.mantenerElevadorBrake();
                 robot.abrirGarraIzq();
                 sleep(200);
-                drive.followTrajectorySequence(trayectoria11);
+                robot.abrirGarraDer();
+                sleep(200);
+                robot.bajarElevadorSinEncoder(0.8);
+                sleep(900);
+                robot.mantenerElevadorBrake();
+                sleep(200);
+                drive.followTrajectorySequence(nueva1);
+                robot.cerrarGarraDer();
+                sleep(400);
+                robot.subirGarra();
+                sleep(200);
+                robot.bajarElevador(0.6);
+                sleep(500);
+                robot.mantenerElevadorBrake();
+                drive.followTrajectorySequence(trayectoria11a);
+                sleep(200);
+                robot.abrirGarraIzq();
+                sleep(200);
+                robot.abrirGarraDer();
+                sleep(200);
+                robot.bajarElevador(0.6);
+                sleep(700);
+
+
             } else {
-                if(getDistance(width) >=15 && getDistance(width) <= 20){
-                    drive.followTrajectorySequence(trajSeq4);
-                    robot.bajarGarra();
-                    robot.abrirGarraDer();
-                    sleep(500);
-                    drive.followTrajectorySequence(trajSeq5);
+                if(getDistance(width) >=60 && getDistance(width) <= 65){
+                    controlHubCam.stopStreaming();
+                    controlHubCam.closeCameraDevice();
                     drive.followTrajectorySequence(trayectoria12);
-                    robot.subirElevador(0.7);
-                    sleep(1000);
+                    drive.followTrajectorySequence(trajSeq2a);
+                    robot.cerrarGarraDer();
+                    sleep(400);
+                    robot.subirGarra();
+                    robot.bajarElevador(0.6);
+                    sleep(350);
+                    robot.mantenerElevadorBrake();
+                    drive.followTrajectorySequence(trayectoria11b);
+                    robot.subirElevador(1);
+                    sleep(900);
                     robot.mantenerElevadorBrake();
                     robot.abrirGarraIzq();
+                    sleep(200);
+                    robot.abrirGarraDer();
+                    sleep(200);
+                    robot.bajarElevadorSinEncoder(0.8);
                     sleep(850);
-                    drive.followTrajectorySequence(trayectoria13);
+                    robot.mantenerElevadorBrake();
+                    sleep(200);
+                    drive.followTrajectorySequence(nueva1);
+                    robot.cerrarGarraDer();
+                    sleep(200);
+                    robot.subirGarra();
+                    sleep(200);
+                    robot.bajarElevador(0.6);
+                    sleep(500);
+                    robot.mantenerElevadorBrake();
+                    drive.followTrajectorySequence(trayectoria11a);
+                    sleep(200);
+                    robot.abrirGarraIzq();
+                    sleep(200);
+                    robot.abrirGarraDer();
+                    sleep(200);
+                    robot.bajarElevador(0.6);
+                    sleep(500);
 
                 } else {
-                    drive.followTrajectorySequence(trajSeq6);
-                    robot.abrirGarraDer();
+                    controlHubCam.stopStreaming();
+                    controlHubCam.closeCameraDevice();
+                    drive.followTrajectorySequence(trayectoriainsana1);
+                    drive.followTrajectorySequence(trajSeq2c);
+                    robot.cerrarGarraDer();
                     sleep(400);
-                    drive.followTrajectorySequence(trajSeq7);
-                    drive.followTrajectorySequence(trayectoria14);
+                    robot.subirGarra();
+                    robot.bajarElevador(0.6);
+                    sleep(350);
+                    robot.mantenerElevadorBrake();
+                    drive.followTrajectorySequence(trayectoria11c);
+                    robot.subirElevador(1);
+                    sleep(900);
+                    robot.mantenerElevadorBrake();
                     robot.abrirGarraIzq();
+                    sleep(200);
+                    robot.abrirGarraDer();
+                    sleep(200);
+                    robot.bajarElevadorSinEncoder(0.8);
+                    sleep(850);
+                    robot.mantenerElevadorBrake();
+                    sleep(200);
+                    drive.followTrajectorySequence(nueva1c);
+                    robot.cerrarGarraDer();
+                    sleep(200);
+                    robot.subirGarra();
+                    sleep(200);
+                    robot.bajarElevador(0.6);
                     sleep(500);
-                    drive.followTrajectorySequence(trayectorira15);
+                    robot.mantenerElevadorBrake();
+                    drive.followTrajectorySequence(trayectoria11ac);
+                    sleep(200);
+                    robot.abrirGarraIzq();
+                    sleep(200);
+                    robot.abrirGarraDer();
+                    sleep(200);
+                    robot.bajarElevador(0.6);
+                    sleep(500);
+
 
 
                 }
@@ -249,6 +432,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
 
         controlHubCam.openCameraDevice();
         controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
     }
     public class YellowBlobDetectionPipeline extends OpenCvPipeline {
         @Override

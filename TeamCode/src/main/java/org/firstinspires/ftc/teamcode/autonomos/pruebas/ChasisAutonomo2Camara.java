@@ -1,11 +1,16 @@
-package org.firstinspires.ftc.teamcode.test.camara;
+package org.firstinspires.ftc.teamcode.autonomos.pruebas;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster_RR;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -23,47 +28,97 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 import java.util.List;
 
-@TeleOp(name = "OpenCV Testing b")
+//@Disabled
+// Gabo = Arnold
+//Beto = úrsula
+//Nadia = Olga
+//Orión = Petra
+@Autonomous(name="Autonomo azul der M->I Camara", group="Camara")
 
-public class opencvAzul extends LinearOpMode {
+public class ChasisAutonomo2Camara extends LinearOpMode {
 
     double cX = 0;
     double cY = 0;
     double width = 0;
 
     private OpenCvCamera controlHubCam;  // Use OpenCvCamera class from FTC SDK
-    private static final int CAMERA_WIDTH = 1280; // width  of wanted camera resolution
-    private static final int CAMERA_HEIGHT = 720; // height of wanted camera resolution
+    private static final int CAMERA_WIDTH =1280; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT =720; // height of wanted camera resolution
 
     // Calculate the distance using the formula
     public static final double objectWidthInRealWorldUnits = 3.75;  // Replace with the actual width of the object in real-world units
-    public static final double focalLength = 720    ;  // Replace with the focal length of the camera in pixels
+    public static final double focalLength =1280;  // Replace with the focal length of the camera in pixels
+
+    public int randomizacion;
 
 
     @Override
     public void runOpMode() {
-
+        RobotConfigMaster_RR robot = new RobotConfigMaster_RR();
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d startPose = new Pose2d(-37, 62, Math.toRadians(270));
+        robot.init(hardwareMap, telemetry);
+        sleep(500);
+        drive.setPoseEstimate(startPose);
+        robot.subirGarra();
         initOpenCV();
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
-        controlHubCam.startStreaming(1280, 720);
+
+        TrajectorySequence izquierda1 = drive.trajectorySequenceBuilder(startPose)
+                .lineToLinearHeading(new Pose2d(-49, 34,Math.toRadians(90))).addTemporalMarker(0.3, () ->{
+                    robot.bajarGarra();
+                })
+                 
+                .build();
 
 
+
+        while(opModeInInit()) {
+        if (getDistance(width) >= 20 && getDistance(width) <27){
+            telemetry.addLine("Randomizacion: derecha");
+        }else
+        if(getDistance(width) >= 30 && getDistance(width) <= 38){
+            telemetry.addLine("Randomizacion: centro");
+        }else
+            telemetry.addLine("Randomizacion: izquierda");
+
+        telemetry.update();
+    }
         waitForStart();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
-            telemetry.addData("Distance in Inch", (getDistance(width)));
-            telemetry.update();
+        if (!isStopRequested()) {
+            if (getDistance(width) >= 20 && getDistance(width) <27){
+                controlHubCam.stopStreaming();
+                controlHubCam.closeCameraDevice();
 
-            // The OpenCV pipeline automatically processes frames and handles detection
+
+
+
+            } else {
+                if(getDistance(width) >= 30 && getDistance(width) <= 38
+                ){
+                    controlHubCam.stopStreaming();
+                    controlHubCam.closeCameraDevice();
+
+
+
+                } else {
+                    controlHubCam.stopStreaming();
+                    controlHubCam.closeCameraDevice();
+
+
+
+
+
+                }
+
+            }
         }
 
-        // Release resources
-        controlHubCam.stopStreaming();
-    }
 
+    }
     private void initOpenCV() {
 
         // Create an instance of the camera
@@ -79,8 +134,9 @@ public class opencvAzul extends LinearOpMode {
 
         controlHubCam.openCameraDevice();
         controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
     }
-    class YellowBlobDetectionPipeline extends OpenCvPipeline {
+    public class YellowBlobDetectionPipeline extends OpenCvPipeline {
         @Override
         public Mat processFrame(Mat input) {
             // Preprocess the frame to detect yellow regions
@@ -125,8 +181,8 @@ public class opencvAzul extends LinearOpMode {
             Mat hsvFrame = new Mat();
             Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-            Scalar lowerYellow = new Scalar(0, 100, 100);
-            Scalar upperYellow = new Scalar(20, 255, 255);
+            Scalar lowerYellow = new Scalar(100, 100, 100);
+            Scalar upperYellow = new Scalar(180, 255, 255 );
 
 
 
@@ -164,6 +220,4 @@ public class opencvAzul extends LinearOpMode {
         double distance = (objectWidthInRealWorldUnits * focalLength) / width;
         return distance;
     }
-
-
 }

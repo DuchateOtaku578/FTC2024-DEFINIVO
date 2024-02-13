@@ -34,7 +34,7 @@ import java.util.List;
 //Beto = úrsula
 //Nadia = Olga
 //Orión = Petra
-@Autonomous(name="Autonomo rojo izq M->D Camara", group="Pushbot")
+@Autonomous(name="Autonomo rojo izq M->D Camara", group="Camara")
 
 public class ChasisAutonomo21Camara extends LinearOpMode {
 
@@ -43,8 +43,8 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
     double width = 0;
 
     private OpenCvCamera controlHubCam;  // Use OpenCvCamera class from FTC SDK
-    private static final int CAMERA_WIDTH = 640; // width  of wanted camera resolution
-    private static final int CAMERA_HEIGHT = 360; // height of wanted camera resolution
+    private static final int CAMERA_WIDTH =1280; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT =720; // height of wanted camera resolution
 
     // Calculate the distance using the formula
     public static final double objectWidthInRealWorldUnits = 3.75;  // Replace with the actual width of the object in real-world units
@@ -66,6 +66,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+        controlHubCam.startStreaming(1280,720);
 
 
 
@@ -88,7 +89,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(-55,-13, Math.toRadians(180))).addTemporalMarker(0.1, () ->{
                     robot.subirGarra();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(0.1 + 0.72 , () ->{
+                }).addTemporalMarker(0.1 + 0.75 , () ->{
                     robot.mantenerElevadorBrake();
                     robot.bajarGarra();
                 })
@@ -170,7 +171,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.46, () ->{
+                }).addTemporalMarker(5 + 0.5, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(5)
@@ -271,10 +272,10 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
 
 
         while(opModeInInit()) {
-        if (getDistance(width) >= 51 && getDistance(width) < 57){
+        if (getDistance(width) >= 20 && getDistance(width) < 29){
             telemetry.addLine("Randomizacion: izquierda");
         }else
-        if(getDistance(width) >=60 && getDistance(width) <= 65){
+        if(getDistance(width) >=30 && getDistance(width) <= 38){
             telemetry.addLine("Randomizacion: centro");
         }else
             telemetry.addLine("Randomizacion: derecha");
@@ -284,7 +285,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
         waitForStart();
 
         if (!isStopRequested()) {
-            if (getDistance(width) >= 51 && getDistance(width) < 57){
+            if (getDistance(width) >= 20 && getDistance(width) < 29){
                 controlHubCam.stopStreaming();
                 controlHubCam.closeCameraDevice();
                 drive.followTrajectorySequence(trajSeq1);
@@ -295,7 +296,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
                 sleep(400);
                 robot.subirGarra();
                 robot.bajarElevador(0.6);
-                sleep(350);
+                sleep(380);
                 robot.mantenerElevadorBrake();
                 drive.followTrajectorySequence(trayectoria11);
                 robot.subirElevador(1);
@@ -328,7 +329,7 @@ public class ChasisAutonomo21Camara extends LinearOpMode {
 
 
             } else {
-                if(getDistance(width) >=60 && getDistance(width) <= 65){
+                if(getDistance(width) >=30 && getDistance(width) <= 38){
                     controlHubCam.stopStreaming();
                     controlHubCam.closeCameraDevice();
                     drive.followTrajectorySequence(trayectoria12);

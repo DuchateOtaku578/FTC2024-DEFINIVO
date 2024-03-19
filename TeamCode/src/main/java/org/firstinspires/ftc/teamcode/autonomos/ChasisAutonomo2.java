@@ -119,13 +119,12 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajseq11 = drive.trajectorySequenceBuilder(trajSeq10.end())
                 .back(10)
-                .strafeLeft(22).addTemporalMarker(0.2,()->{
+                .strafeRight(22).addTemporalMarker(0.2,()->{
                     robot.bajarElevador(0.7);
                     robot.subirGarra();
                 }).addTemporalMarker(0.2 + 1, () -> {
                    robot.mantenerElevadorBrake();
                })
-                .forward(15)
                 .build();
 
         TrajectorySequence trajSeq13 = drive.trajectorySequenceBuilder(trajSeq8.end())
@@ -138,19 +137,18 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         TrajectorySequence trajseq14 = drive.trajectorySequenceBuilder(trajSeq13.end())
                 .back(10)
-                .strafeLeft(27).addTemporalMarker(0.2,()->{
+                .strafeRight(21).addTemporalMarker(0.2,()->{
                     robot.bajarElevador(0.7);
                     robot.subirGarra();
                 }).addTemporalMarker(0.2 +0.9, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .forward(15)
+
                 .build();
 
         TrajectorySequence trajeseq15 = drive.trajectorySequenceBuilder(trajSeq9.end())
-                .back(10)
-                .strafeLeft(17)
-                .forward(13)
+                .back(3)
+
                 .build();
 
 
@@ -162,6 +160,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
         if(!isStopRequested()) {
             drive.followTrajectorySequence(trajSeq);
             if(robot.distanciaCentimetros() <=30){
+                sleep(4000);
                 //morado
                 drive.followTrajectorySequence(trajSec2);
                 robot.bajarGarra();
@@ -180,6 +179,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
             }else {
                 drive.followTrajectorySequence(trajSeq3);
                 if (robot.distanciaCentimetros() <=30) {
+                    sleep(4000);
                     drive.followTrajectorySequence(trajSeq7);
                     robot.bajarGarra();
                     robot.abrirGarraIzq();
@@ -191,6 +191,7 @@ public class ChasisAutonomo2 extends LinearOpMode {
                     sleep(900);
                     drive.followTrajectorySequence(trajseq14);
                 } else {
+                    sleep(4000);
                     drive.followTrajectorySequence(trajSeq5);
                     robot.bajarGarra();
                     robot.abrirGarraIzq();
@@ -204,6 +205,9 @@ public class ChasisAutonomo2 extends LinearOpMode {
                     sleep(500);
                     drive.followTrajectorySequence(trajeseq15);
                     robot.bajarElevador(0.7);
+                    sleep(500);
+                    robot.mantenerElevadorBrake();
+
 
 
 

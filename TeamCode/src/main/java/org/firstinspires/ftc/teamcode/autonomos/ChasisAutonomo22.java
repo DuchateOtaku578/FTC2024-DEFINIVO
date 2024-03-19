@@ -32,7 +32,7 @@ public class ChasisAutonomo22 extends LinearOpMode {
 
         TrajectorySequence trayectoria1 = drive.trajectorySequenceBuilder(startPose)
                 .forward(17)
-                .strafeLeft(7)
+                .strafeLeft(6)
                 .build();
 
         TrajectorySequence trayectoria2 = drive.trajectorySequenceBuilder(trayectoria1.end())
@@ -60,7 +60,7 @@ public class ChasisAutonomo22 extends LinearOpMode {
                 .build();
 
         TrajectorySequence trayectoria5 = drive.trajectorySequenceBuilder(trayectoria1.end())
-                .strafeLeft(11.5)
+                .strafeLeft(11)
                 .build();
 
         TrajectorySequence trayectoria6 = drive.trajectorySequenceBuilder(trayectoria5.end())
@@ -125,7 +125,7 @@ public class ChasisAutonomo22 extends LinearOpMode {
 
         if (!isStopRequested()) {
             drive.followTrajectorySequence(trayectoria1);
-            if (robot.distanciaCentimetros_2() <= 35) {
+            if (robot.distanciaCentimetros_2() <= 40) {
                     robot.bajarGarra();
                     drive.followTrajectorySequence(trayectoria2);
                     robot.abrirGarraDer();

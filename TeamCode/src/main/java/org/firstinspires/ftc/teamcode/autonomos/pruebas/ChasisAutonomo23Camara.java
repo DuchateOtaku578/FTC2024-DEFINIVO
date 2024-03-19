@@ -97,7 +97,7 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.6, () ->{
+                }).addTemporalMarker(5 + 0.72, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(5)
@@ -132,7 +132,7 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
 
         TrajectorySequence izquierda2 = drive.trajectorySequenceBuilder(izquierda1.end())
                 .back(10)
-                .lineToSplineHeading(new Pose2d(52 , -29
+                .lineToSplineHeading(new Pose2d(52 , -30.5
                         , Math.toRadians(0))).addTemporalMarker(0.1,() ->{
                     robot.subirGarra();
                     robot.subirElevador(0.7);
@@ -186,7 +186,7 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
 
         TrajectorySequence centro2 = drive.trajectorySequenceBuilder(centro1.end())
                 .back(10)
-                .lineToSplineHeading(new Pose2d(52, -37.2, Math.toRadians(0))).addTemporalMarker(0.1, () ->{
+                .lineToSplineHeading(new Pose2d(52, -36, Math.toRadians(0))).addTemporalMarker(0.1, () ->{
                     robot.subirGarra();
                     robot.subirElevador(0.7);
                 }).addTemporalMarker(0.1 + 1.2, () ->{
@@ -200,11 +200,11 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
                     robot.cerrarGarraIzq();
                 })
                 .lineToConstantHeading(new Vector2d(-30, -8))
-                .lineToConstantHeading(new Vector2d(-55, -12)).addTemporalMarker(5, () ->{
+                .lineToConstantHeading(new Vector2d(-55, -13)).addTemporalMarker(5, () ->{
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.6, () ->{
+                }).addTemporalMarker(5 + 0.73, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(5)
@@ -240,10 +240,10 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
 
 
         while(opModeInInit()) {
-        if (getDistance(width) >= 20 && getDistance(width) <27){
+        if (getDistance(width) >= 14 && getDistance(width) <24){
             telemetry.addLine("Randomizacion: derecha");
         }else
-        if(getDistance(width) >= 30 && getDistance(width) <= 38){
+        if(getDistance(width) >= 28 && getDistance(width) <= 38){
             telemetry.addLine("Randomizacion: centro");
         }else
             telemetry.addLine("Randomizacion: izquierda");
@@ -302,7 +302,7 @@ public class ChasisAutonomo23Camara extends LinearOpMode {
                     robot.subirGarra();
                     sleep(200);
                     robot.bajarElevador(0.6);
-                    sleep(500);
+                    sleep(550);
                     robot.mantenerElevadorBrake();
                     drive.followTrajectorySequence(centro4);
                     robot.abrirGarraDer();

@@ -87,7 +87,7 @@ public class ChasisAutonomo21 extends LinearOpMode {
                     robot.subirGarra();
                     robot.cerrarGarraDer();
                 })
-                .lineToSplineHeading(new Pose2d(-34, 0,Math.toRadians(270)))
+                .lineToConstantHeading(new Vector2d(-34, 0))
                 .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0)))
                 .build();
 

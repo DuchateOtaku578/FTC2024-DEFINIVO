@@ -181,8 +181,13 @@ public class RobotConfigMaster_RR {
     }
 
     public void subirGarra(){
-        servoDerecha.setPosition(0.7); //77
-        servoIzquierda.setPosition(0.7);  //77
+        servoDerecha.setPosition(0.73); //77
+        servoIzquierda.setPosition(0.73);  //77
+    }
+
+    public  void subirGarraTeleop() {
+        servoDerecha.setPosition(0.69 ); //77
+        servoIzquierda.setPosition(0.69);  //77
     }
 
 

@@ -96,11 +96,11 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.cerrarGarraIzq();
                 })
                 .lineToConstantHeading(new Vector2d(-30, 8))
-                .lineToConstantHeading(new Vector2d(-55, 10)).addTemporalMarker(5, () ->{
+                .lineToConstantHeading(new Vector2d(-55, 9.5)).addTemporalMarker(5, () ->{
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.8, () ->{
+                }).addTemporalMarker(5 + 0.74, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(5.5)
@@ -108,7 +108,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
 
         TrajectorySequence izquierda4 = drive.trajectorySequenceBuilder(izquierda3.end())
                 .lineToLinearHeading(new Pose2d(-35 ,5, Math.toRadians(0)))
-                .splineToConstantHeading(new Vector2d(10, 5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(15, 5), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(49, 35), Math.toRadians(0)).addTemporalMarker(3.5, () ->{
                     robot.subirElevador(0.8);
                 }).addTemporalMarker(3.2 + 1.6, () ->{
@@ -119,7 +119,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
         TrajectorySequence izquierda5 = drive.trajectorySequenceBuilder(izquierda4.end())
                 .back(5).addTemporalMarker(0.1, () ->{
                     robot.bajarElevadorSinEncoder(0.8);
-                }).addTemporalMarker(0.1 + 0.9, () ->{
+                }).addTemporalMarker(0.1 + 1, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .strafeRight(25
@@ -139,10 +139,10 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.cerrarGarraDer();
                     robot.subirGarra();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(0.1 + 0.9, () -> {
+                }).addTemporalMarker(0.1 + 1.1, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .lineToSplineHeading(new Pose2d(52.2, 34.5, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(52.5, 34.5, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence centro3 = drive.trajectorySequenceBuilder(centro2.end())
@@ -152,14 +152,15 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.cerrarGarraIzq();
                 })
                 .lineToConstantHeading(new Vector2d(-30, 8))
-                .lineToConstantHeading(new Vector2d(-55, 10)).addTemporalMarker(5, () ->{
+                .lineToConstantHeading(new Vector2d(-55, 9.8)
+                ).addTemporalMarker(5, () ->{
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.8, () ->{
+                }).addTemporalMarker(5 + 0.78, () ->{
                     robot.mantenerElevadorBrake();
                 })
-                .forward(5.5)
+                .forward(5.7)
                 .build();
 
         TrajectorySequence centro4 = drive.trajectorySequenceBuilder(centro3.end())
@@ -175,7 +176,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
         TrajectorySequence centro5 = drive.trajectorySequenceBuilder(centro4.end())
                 .back(5).addTemporalMarker(0.1, () ->{
                     robot.bajarElevadorSinEncoder(0.8);
-                }).addTemporalMarker(0.1 + 0.9, () ->{
+                }).addTemporalMarker(0.1 + 1, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .strafeRight(27)
@@ -194,10 +195,10 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.cerrarGarraDer();
                     robot.subirGarra();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(0.1 + 0.9, () -> {
+                }).addTemporalMarker(0.1 + 1.2, () -> {
                     robot.mantenerElevadorBrake();
                 })
-                .lineToSplineHeading(new Pose2d(52.2, 30, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(52.2, 29, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence derecha3 = drive.trajectorySequenceBuilder(derecha2.end())
@@ -207,19 +208,19 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.cerrarGarraIzq();
                 })
                 .lineToConstantHeading(new Vector2d(-30, 8))
-                .lineToConstantHeading(new Vector2d(-55, 10)).addTemporalMarker(5, () ->{
+                .lineToConstantHeading(new Vector2d(-55, 9.9)).addTemporalMarker(5, () ->{
                     robot.bajarGarra();
                     robot.abrirGarraDer();
                     robot.subirElevador(0.7);
-                }).addTemporalMarker(5 + 0.8, () ->{
+                }).addTemporalMarker(5 + 0.75, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .forward(5.5)
                 .build();
 
         TrajectorySequence derecha4 = drive.trajectorySequenceBuilder(derecha3.end())
-                .lineToLinearHeading(new Pose2d(-35 ,5, Math.toRadians(0)))
-                .splineToConstantHeading(new Vector2d(10, 5), Math.toRadians(0))
+                .lineToLinearHeading(new Pose2d(-35 ,7, Math.toRadians(0)))
+                .splineToConstantHeading(new Vector2d(10, 7), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(49, 35), Math.toRadians(0)).addTemporalMarker(3.5, () ->{
                     robot.subirElevador(0.8);
                 }).addTemporalMarker(3.2 + 1.6, () ->{
@@ -230,7 +231,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
         TrajectorySequence derecha5 = drive.trajectorySequenceBuilder(derecha4.end())
                 .back(5).addTemporalMarker(0.1, () ->{
                     robot.bajarElevadorSinEncoder(0.8);
-                }).addTemporalMarker(0.1 + 0.9, () ->{
+                }).addTemporalMarker(0.1 + 1, () ->{
                     robot.mantenerElevadorBrake();
                 })
                 .strafeRight(27)
@@ -249,6 +250,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
         telemetry.update();
     }
         waitForStart();
+//Hola Babo Uwu
 
         if (!isStopRequested()) {
             if (getDistance(width) >= 22 && getDistance(width) <28){
@@ -261,7 +263,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                 robot.abrirGarraIzq();
                 sleep(200);
                 robot.bajarElevadorSinEncoder(0.7);
-                sleep(800);
+                sleep(950);
                 robot.mantenerElevadorBrake();
                 drive.followTrajectorySequence(derecha3);
                 robot.cerrarGarraDer();
@@ -269,7 +271,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                 robot.subirGarra();
                 sleep(200);
                 robot.bajarElevador(0.6);
-                sleep(500);
+                sleep(580);
                 robot.mantenerElevadorBrake();
                 drive.followTrajectorySequence(derecha4);
                 robot.abrirGarraDer();
@@ -289,7 +291,7 @@ public class ChasisAutonomo22Camara extends LinearOpMode {
                     robot.abrirGarraIzq();
                     sleep(200);
                     robot.bajarElevadorSinEncoder(0.7);
-                    sleep(800);
+                    sleep(900);
                     robot.mantenerElevadorBrake();
                     drive.followTrajectorySequence(centro3);
                     robot.cerrarGarraDer();

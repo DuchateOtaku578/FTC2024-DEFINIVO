@@ -97,7 +97,7 @@ public class  TeleOpMaster extends LinearOpMode {
                     } else {
                         robot.mantenerGancho();
                     }
-        //controles elevador
+        //controles avion
                     if (gamepad2.x && gamepad2.left_bumper) {
                         robot.ligaAvion.setPosition(0.4);
                     }
